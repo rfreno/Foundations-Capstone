@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./styles.css"/>
+        <title>BRW Yoga Capstone</title>
+    </head>
+
+    <header>
+        <img src="images/yogaIcon.jpeg">
+        <nav>
+            <ul>
+                <li>
+                    <a href="#" id="allPoses" class="buttons">POSES</a>
+                </li>
+                <li>
+                    <a href="#" id="allCat" class="buttons">CATEGORIES</a>
+                </li>
+                <li>
+                    <a href="#" id="allFavs" class="buttons">FAVORITES</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <body>
+        <section id="main" class="main">
+            <h2>Welcome to my little site.</h2>
+            <h3>Select 'Poses' to view a list of common yoga poses. </h3>
+            <p>> Each pose will display its English and corresponding Sanskrit name, a simple visualization, and a list of categories related to that pose.</p>
+        </section>
+        <section id="displayPoses"></section>
+        <section id="displayCat"></section>
+        <section id="displayFavs"></section>
+        
+        <script src="../node_modules/axios/dist/axios.min.js"></script>
+        <script src="./main.js"></script>
+    </body>
+
+
+</html>

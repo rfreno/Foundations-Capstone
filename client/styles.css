@@ -1,0 +1,116 @@
+@font-face {
+    font-family: lgc;
+    src: url(./fonts/Louis\ George\ Cafe.ttf);
+}
+
+@font-face {
+    font-family: lgcLight;
+    src: url(./fonts//Louis\ George\ Cafe\ Light\ Italic.ttf);
+}
+
+body {
+    background-color: #faf9f9;
+    margin-top:70px;
+    padding: 50px;
+    font-family: lgc;
+}
+
+
+/* header styles */
+header {
+    background-color: #89b0ae;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    display:flex;
+    padding:10px;
+    align-items: center;
+}
+
+header * {
+    display:inline;
+    padding: 5px;
+}
+
+header img {
+    height:80px;
+    border-radius: 50%;
+}
+
+.moused {
+    color:#faf9f9;
+}
+
+li a {
+    font-family: lgc;
+    color: #555b6e;
+    font-size: 15pt;
+    text-decoration: none;
+}
+
+section {
+    position:flexbox;
+    justify-content: center;
+    text-align: center;
+}
+
+div > img {
+    height: 100px;
+}
+
+.nameFav {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.poseContent {
+    background-color: #bee3db;
+    border: 1px silver solid;
+    border-radius: 50px;
+    margin:50px;
+    box-shadow: 2px 2px 2px 2px #555b6e;
+}
+
+.catContent {
+    background-color:#bee3db;
+    border: 1px silver solid;
+    border-radius: 50px;
+    margin:50px;
+    box-shadow: 2px 2px #555b6e;
+}
+
+.favBtn {
+    background-image: url(https://img.icons8.com/ios/452/add-to-favorites--v1.png);
+    background-size:cover;
+    width:30px;
+    height:30px;
+    border-radius: 50%;
+    background-color: #faf9f9;
+}
+
+.favorited {
+    background-image: url(https://img.icons8.com/ios-glyphs/344/star--v1.png);
+    background-size:cover;
+    width:30px;
+    height:30px;
+    border-radius: 50%;
+    background-color: #faf9f9;
+}
+
+button > img {
+    width:15px;
+    height:15px;
+    margin:auto;
+}
+
+.main {
+    background-color: #bee3db;
+    border-radius: 20px;
+}
+
+.hide {
+    display: none;
+}

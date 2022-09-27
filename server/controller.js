@@ -8,7 +8,7 @@ module.exports = {
     getposes: (req, res) => {
         poseList.sort((a,b) => a.id - b.id)
         res.status(200).send(poseList)
-        console.log('sent')
+        // console.log('sent')
     },
     togglefav: (req, res) => {
         let index = poseList.findIndex(elem => elem.id === req.body.id)

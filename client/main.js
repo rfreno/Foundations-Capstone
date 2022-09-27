@@ -1,4 +1,4 @@
-const baseURL = `http://localhost:9256`
+// const baseURL = `http://localhost:9256`
 
 // document selectors
 const allPoses = document.querySelector('#allPoses')
@@ -25,7 +25,7 @@ const getAllPoses = () => {
 
     axios.get(`https://lightning-yoga-api.herokuapp.com/yoga_poses`) 
         .then(res => {
-            console.log("front end", res.data.items)
+            // console.log("front end", res.data.items)
             for (let i = 0; i < res.data.items.length; i++) {
                 const id = res.data.items[i].id
                 const name = (res.data.items[i].english_name)
@@ -41,12 +41,12 @@ const getAllPoses = () => {
                     cats,
                     fav: false
                 }
-                axios.post(`${baseURL}/poses`, poseCopy).then()
+                axios.post(`/poses`, poseCopy).then()
 }})}
 
 const showPoses = () => {
     clearList()
-    axios.get(`${baseURL}/poses`)
+    axios.get(`/poses`)
         .then(res => {
             // console.log(res)
             for (let i = 0; i < res.data.length; i++) {
@@ -62,10 +62,10 @@ const showPoses = () => {
                 if (res.data[i].fav === false) {
                     favBtn.classList.add('favBtn')
                 } else {
+                    favBtn.classList.remove('favBtn')
                     favBtn.classList.add('favorited')
                 }
-                favBtn.addEventListener('click', () => favorited(favBtn, res.data[i],false))
-                // add functionality to this for fav list
+                favBtn.addEventListener('click', () => favorited(favBtn, res.data[i], false))
                 
                 poseHeader.append(headerName,favBtn)
                 thisPose.append(poseHeader)
@@ -91,7 +91,7 @@ const showPoses = () => {
 
 const getAllFavs = () => {
     clearList()
-    axios.get(`${baseURL}/favorites`)
+    axios.get(`/favorites`)
         .then(res => {
             // console.log(res)
             for (let i = 0; i < res.data.length; i++) {
@@ -178,8 +178,9 @@ const getAllCat = () => {
 
 const favorited = (button, pose, source) => {
     button.classList.toggle('favorited')
-    axios.put(`${baseURL}/poses/${pose.id}`, pose).then()
-    console.log(source)
+    button.classList.toggle('favBtn')
+    axios.put(`/poses/${pose.id}`, pose).then()
+    // console.log(source)
     if (source === true) {
         getAllFavs()
     }

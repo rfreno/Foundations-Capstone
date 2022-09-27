@@ -114,3 +114,14 @@ button > img {
 .hide {
     display: none;
 }
+
+.favContent {
+    background-color: #bee3db;
+    border: 1px silver solid;
+    border-radius: 50px;
+    margin:50px;
+    box-shadow: 2px 2px 2px 2px #555b6e;
+    display:inline-block;
+    width:25%;
+    height:25%;
+}

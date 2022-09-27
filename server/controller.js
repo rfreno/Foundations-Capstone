@@ -1,28 +1,29 @@
 let poseList = []
 
 module.exports = {
-    getposes: (req, response) => {
-        app.get(`https://lightning-yoga-api.herokuapp.com/yoga_poses`) 
-        .then(res => {
-            for (let i = 0; i < res.data.items.length; i++) {
-                const id = res.data.items[i].id
-                const name = (res.data.items[i].english_name)
-                const sanskrit =(res.data.items[i].sanskrit_name)
-                const img = (res.data.items[i].img_url)
-                const cats = res.data.items[i].yoga_categories
+    addposes: (req, res) => {
+        poseList.push(req.body)
+        res.status(200).send()
+    },
+    getposes: (req, res) => {
+        poseList.sort((a,b) => a.id - b.id)
+        res.status(200).send(poseList)
+        console.log('sent')
+    },
+    togglefav: (req, res) => {
+        let index = poseList.findIndex(elem => elem.id === req.body.id)
 
-                const poseCopy = {
-                    id,
-                    name,
-                    sanskrit,
-                    img,
-                    cats,
-                    fav: false
-                }
-                poseList.push(poseCopy)
-            }})
-            console.log(poseList)
-        response.status(200).send(poseList)
+        if ( poseList[index].fav === false ) {
+            poseList[index].fav = true
+        } else {
+            poseList[index].fav = false
+        }
+
+        res.status(200).send()
+    },
+    getfavs: (req,res) => {
+        let favorites = poseList.filter((pose) => pose.fav === true)
+        res.status(200).send(favorites)
     }
 }
 

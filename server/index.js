@@ -7,11 +7,9 @@ const path = require('path')
 app.use(express.json())
 app.use(cors())
 
-const { getposes } = require('./controller')
+const { addposes, getposes, togglefav, getfavs } = require('./controller')
 
-// app.post('/poses', (req, res) => {
-//     // add new object to list
-// })
+app.post('/poses', addposes)
 
 app.get('/', (req,res) => {
     res.sendFile(path.join(__dirname, '../client/index.html'))
@@ -19,13 +17,9 @@ app.get('/', (req,res) => {
 
 app.get('/poses', getposes)
 
-app.put('/poses/:id', (req, res) => {
-    // toggle favorites / add to list / remove from list
-})
+app.put('/poses/:id', togglefav)
 
-app.get('/categories', (req, res) => {
-    // return cat list to html
-})
+app.get('/favorites', getfavs)
 
 
-app.listen(5500, () => console.log('Listening on port 5500'))
+app.listen(9256, () => console.log('Listening on port 9256'))

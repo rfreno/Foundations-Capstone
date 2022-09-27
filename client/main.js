@@ -21,8 +21,6 @@ const clearList = () => {
 }
 
 const getAllPoses = () => {
-    // console.log('we made it to l24')
-
     axios.get(`https://lightning-yoga-api.herokuapp.com/yoga_poses`) 
         .then(res => {
             // console.log("front end", res.data.items)

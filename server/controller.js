@@ -2,16 +2,13 @@ let poseList = []
 
 module.exports = {
     addposes: (req, res) => {
-        // console.log(req.body.id)
-        if(!poseList.includes(req.body.id, 0)){
         poseList.push(req.body)
-        }
+        poseList.sort((a,b) => a.id - b.id)
         res.status(200).send()
     },
     getposes: (req, res) => {
-        poseList.sort((a,b) => a.id - b.id)
+        poseList = Array.from(new Set(poseList.map(a => a.id))).map(id => {return poseList.find(a => a.id === id)})
         res.status(200).send(poseList)
-        // console.log('sent')
     },
     togglefav: (req, res) => {
         let index = poseList.findIndex(elem => elem.id === req.body.id)

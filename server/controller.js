@@ -2,7 +2,10 @@ let poseList = []
 
 module.exports = {
     addposes: (req, res) => {
+        // console.log(req.body.id)
+        if(!poseList.includes(req.body.id, 0)){
         poseList.push(req.body)
+        }
         res.status(200).send()
     },
     getposes: (req, res) => {

@@ -85,27 +85,31 @@ div > img {
 
 .favBtn {
     background-image: url(/heart);
-    background-size:cover;
-    width:30px;
-    height:30px;
+    background-size: cover;
+    /* background-size:20px; */
+    width:35px;
+    height:35px;
     border-radius: 50%;
     background-color: #faf9f9;
+    margin:2px;
 }
 
 .favorited {
     background-image: url(/love);
-    background-size:cover;
-    width:30px;
-    height:30px;
+    background-size: cover;
+    /* background-size:80%; */
+    width:35px;
+    height:35px;
     border-radius: 50%;
     background-color: #faf9f9;
+    /* margin:2px; */
 }
 
-button > img {
+/* button > img {
     width:10px;
     height:10px;
-    margin:auto;
-}
+    /* margin:auto; */
+/* } */ 
 
 .main {
     background-color: #bee3db;

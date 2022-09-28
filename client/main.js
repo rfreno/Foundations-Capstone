@@ -4,10 +4,12 @@
 const allPoses = document.querySelector('#allPoses')
 const allCat = document.querySelector('#allCat')
 const allFavs = document.querySelector('#allFavs')
+const seeRoutines = document.querySelector('#routines')
 const displayPoses = document.querySelector('#displayPoses')
 const displayCat = document.querySelector('#displayCat')
 const displayFavs = document.querySelector('#displayFavs')
 const mainCont = document.querySelector('#main')
+const routines = document.querySelector('#displayRoutines')
 
 let poselist = []
 let favList = []
@@ -18,11 +20,10 @@ const clearList = () => {
     displayPoses.innerHTML = ``
     displayCat.innerHTML = ``
     displayFavs.innerHTML = ``
+    displayRoutines.innerHTML = ``
 }
 
 const getAllPoses = () => {
-    // console.log('we made it to l24')
-
     axios.get(`https://lightning-yoga-api.herokuapp.com/yoga_poses`) 
         .then(res => {
             // console.log("front end", res.data.items)
@@ -206,13 +207,19 @@ const mouseOff = num => {
     }
 }
 
+const routineSetUp = () => {
+    clearList()
+
+    displayRoutines.innerHTML = `<p>Whoops... this page is under construction!</p>`
+}
+
 getAllPoses()
 
 // event listeners
 allPoses.addEventListener('click', () => showPoses())
 allCat.addEventListener('click', () => getAllCat())
 allFavs.addEventListener('click', () => getAllFavs())
-    // this function will need to 'get' the favs list from the backend
+seeRoutines.addEventListener('click', () => routineSetUp())
 
 allPoses.addEventListener('mouseover', () => moused(1))
 allCat.addEventListener('mouseover', () => moused(2))
@@ -221,4 +228,3 @@ allFavs.addEventListener('mouseover', () => moused(3))
 allPoses.addEventListener('mouseout', () => mouseOff(1))
 allCat.addEventListener('mouseout', () => mouseOff(2))
 allFavs.addEventListener('mouseout', () => mouseOff(3))
-

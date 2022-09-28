@@ -72,6 +72,8 @@ div > img {
     border-radius: 50px;
     margin:50px;
     box-shadow: 2px 2px 2px 2px #555b6e;
+    width:33%;
+    display:inline-block;
 }
 
 .catContent {
@@ -89,7 +91,7 @@ div > img {
     /* background-size:20px; */
     width:35px;
     height:35px;
-    border-radius: 50%;
+    border-radius: 48%;
     background-color: #faf9f9;
     margin:2px;
 }
@@ -100,7 +102,7 @@ div > img {
     /* background-size:80%; */
     width:35px;
     height:35px;
-    border-radius: 50%;
+    border-radius: 48%;
     background-color: #faf9f9;
     /* margin:2px; */
 }

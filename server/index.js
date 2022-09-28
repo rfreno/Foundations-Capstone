@@ -15,10 +15,6 @@ const { addposes, getposes, togglefav, getfavs } = require('./controller')
 
 app.post('/poses', addposes)
 
-app.get('/', (req,res) => {
-    res.sendFile(path.join(__dirname, '../client/index.html'))
-})
-
 app.get('/poses', getposes)
 
 app.put('/poses/:id', togglefav)
@@ -27,6 +23,21 @@ app.get('/favorites', getfavs)
 
 
 // html end-points
+app.get('/', (req,res) => {
+    res.sendFile(path.join(__dirname, '../client/index.html'))
+})
+// app.get('/routinesPage', (req,res) => {
+//     res.sendFile(path.join(__dirname, '../client/routines.html'))
+// })
+// app.get('/posesPage', (req,res) => {
+//     res.sendFile(path.join(__dirname, '../client/poses.html'))
+// })
+// app.get('/categoriesPage', (req,res) => {
+//     res.sendFile(path.join(__dirname, '../client/categories.html'))
+// })
+// app.get('/favoritesPage', (req,res) => {
+//     res.sendFile(path.join(__dirname, '../client/favorites.html'))
+// })
 app.get('/css', (req,res) => {
     res.sendFile(path.join(__dirname, '../client/styles.css'))
 })

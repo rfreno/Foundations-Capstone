@@ -62,6 +62,10 @@ app.get('/axiosnodes', (req, res) => {
 app.get('/main', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/main.js'))
 })
+// app.get('/allPoses', (req, res) => {
+//     console.log(res.body)
+//     res.send(res.body)
+// })
 
 
 app.listen(port, () => console.log('Listening on port ' + port))

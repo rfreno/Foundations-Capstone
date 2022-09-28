@@ -11,6 +11,7 @@ const displayFavs = document.querySelector('#displayFavs')
 const mainCont = document.querySelector('#main')
 const routines = document.querySelector('#displayRoutines')
 
+
 let poselist = []
 let favList = []
 
@@ -210,7 +211,54 @@ const mouseOff = num => {
 const routineSetUp = () => {
     clearList()
 
-    displayRoutines.innerHTML = `<p>Whoops... this page is under construction!</p>`
+    
+    displayRoutines.innerHTML = `
+    <h2>Fill out the form below to create a routine.</h2>
+    <form>
+    <label for="rname">Routine title:</label><br>
+    <input type="text" id="rname" name="rname"><br>
+    <label for="creator">Creator name:</label><br>
+    <input type="text" id="creator" name="creator">
+    <p>Choose the routine difficulty level below:</p>
+    <input type="radio" id="beg" name="difficulty" value="Beginner">
+    <label for="beg">Beginner</label><br>
+    <input type="radio" id="int" name="difficulty" value="Intermediate">
+    <label for="int">Intermediate</label><br>
+    <input type="radio" id="adv" name="difficulty" value="Advanced">
+    <label for="adv">Advanced</label>
+    <p></p>
+    <label for="poses">Select poses to include:</label>
+    <div id="poseCheck"></div>
+    <input type="submit" value="Submit">
+    `
+    // const poseSelector = document.querySelector('#poseSelect')
+    const poseCheckboxes = document.querySelector('#poseCheck')
+
+    axios.get(`/poses`)
+        .then(res => {
+            console.log(res.data)
+            for (let i = 0; i < res.data.length; i++) {
+                // let poseOption = document.createElement('option')
+                // poseOption.id = res.data[i].id
+                // poseOption.value = res.data[i].name
+                // poseOption.textContent = res.data[i].name
+                // poseSelector.add(poseOption)
+
+                let poseCheck = document.createElement('input')
+                poseCheck.type = "checkbox"
+                poseCheck.id = res.data[i].id
+                poseCheck.value = res.data[i].name
+                poseCheck.name = res.data[i].name
+                poseCheck.textContent = res.data[i].name
+                let poseLabel = document.createElement('label')
+                poseLabel.for = res.data[i].name
+                poseLabel.textContent = res.data[i].name
+                poseCheckboxes.append(poseCheck, poseLabel)
+            }
+        })
+
+    // post new routine object to backend
+
 }
 
 getAllPoses()
@@ -228,3 +276,7 @@ allFavs.addEventListener('mouseover', () => moused(3))
 allPoses.addEventListener('mouseout', () => mouseOff(1))
 allCat.addEventListener('mouseout', () => mouseOff(2))
 allFavs.addEventListener('mouseout', () => mouseOff(3))
+
+// old selector for routines
+// <p class="small">Hold down the Ctrl (windows) or Command (Mac) button to select multiple options.</p>
+// <select name="selectedPoses" id="poseSelect" multiple></select>

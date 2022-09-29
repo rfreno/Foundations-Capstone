@@ -336,7 +336,7 @@ const showRoutines = () => {
                 const creatorName = document.createElement('h3')
                 creatorName.textContent = 'Created by ' + res.data[i].creator
 
-                const desc = document.createElement('h6')
+                const desc = document.createElement('h4')
                 desc.textContent= res.data[i].description
 
                 const level = document.createElement('p')
@@ -355,7 +355,7 @@ const showRoutines = () => {
                     poseList.append(newItem)
                 })
 
-                thisRoutine.append(routineName, creatorName, level, poseList)
+                thisRoutine.append(routineName, creatorName, level, desc, poseList)
                 displayRoutines.append(thisRoutine)
             }
     }}

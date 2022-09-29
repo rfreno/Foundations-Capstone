@@ -331,6 +331,7 @@ const showRoutines = () => {
             displayRoutines.innerHTML = `<p class="small">There are no routines to display</p>`
         }
         else {
+            console.log(res.data)
             for (let i = 0; i < res.data.length; i++) {
                 const thisRoutine = document.createElement('div')
                 thisRoutine.classList.add('routineContent')
@@ -341,18 +342,22 @@ const showRoutines = () => {
                 const creatorName = document.createElement('h3')
                 creatorName.textContent= res.data[i].creator
 
-                const difficulty = document.createElement('p')
-                difficulty.textContent= res.data[i].difficulty
+                const level = document.createElement('p')
+                level.textContent= res.data[i].difficulty
 
                 const poseList = document.createElement('div')
-                poseList.innerHTML = `<p>Pose list:</p>`
-                res.data[i].poses.forEach((one) => {
-                    const thisone = document.querySelector('p')
-                    thisone.textContent = one
-                    poseList.append(thisone)
+                const title = document.createElement('p')
+                title.textContent = 'Pose List:'
+                poseList.append(title)
+                
+                res.data[i].poses.forEach(item => {
+                    const newItem = document.createElement('p')
+                    console.log(item)
+                    newItem.textContent = item
+                    poseList.append(newItem)
                 })
 
-                thisRoutine.append(routineName, creatorName, difficulty,poseList)
+                thisRoutine.append(routineName, creatorName, level, poseList)
                 displayRoutines.append(thisRoutine)
             }
     }}

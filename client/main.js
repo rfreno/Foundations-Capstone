@@ -2,6 +2,7 @@
 
 // document selectors
 const allPoses = document.querySelector('#allPoses')
+const sortBox = document.getElementById('sortdropdown')
 const allCat = document.querySelector('#allCat')
 const allFavs = document.querySelector('#allFavs')
 const allRoutines = document.querySelector('#allRoutines')
@@ -20,6 +21,7 @@ let routinePoses = []
 const clearList = () => {
     mainCont.classList.add('hide')
     displayPoses.innerHTML = ``
+    sortBox.innerHTML = ``
     displayCat.innerHTML = ``
     displayFavs.innerHTML = ``
     routineForm.innerHTML = ``
@@ -29,7 +31,6 @@ const clearList = () => {
 const getAllPoses = () => {
     axios.get(`https://lightning-yoga-api.herokuapp.com/yoga_poses`) 
         .then(res => {
-            // console.log("front end", res.data.items)
             for (let i = 0; i < res.data.items.length; i++) {
                 const id = res.data.items[i].id
                 const name = (res.data.items[i].english_name)
@@ -50,7 +51,24 @@ const getAllPoses = () => {
 
 const showPoses = () => {
     clearList()
-    axios.get(`/poses`)
+
+    // sortBox.innerHTML = `
+    //     <label>Sort By:</label>
+    //     <select id="sort" onchange="showPoses()">
+    //         <option value="eaz">English - A to Z</option>
+    //         <option value="eza">English - Z to A</option>
+    //         <option value="saz">Sanskrit - A to Z</option>
+    //         <option value="sza">Sanskrit - Z to A</option>
+    //     </select>
+    // `
+    // const order = document.getElementById('sort').value
+    // console.log("doc", document.getElementById('sort'))
+    // // if (order === null) {
+    // //     order = 'eaz'
+    // // }
+    // console.log('order',order)
+
+    axios.get(`/poses`)//,{params:{order}})
         .then(res => {
             // console.log(res)
             for (let i = 0; i < res.data.length; i++) {
@@ -79,7 +97,6 @@ const showPoses = () => {
                 thisPose.append(image)
                 
                 const categories = document.createElement('p')
-                // console.log(res.data)
                 for (let j = 0; j < res.data[i].cats.length; j++) {
                     categories.textContent += res.data[i].cats[j].name 
                     
@@ -268,7 +285,6 @@ const addRoutine = (e) => {
     routinePoses = []
 }
 
-
 const routineSetUp = () => {
     clearList()
 
@@ -365,7 +381,7 @@ const showRoutines = () => {
 getAllPoses()
 
 // event listeners
-allPoses.addEventListener('click', () => showPoses())
+allPoses.addEventListener('click', () => showPoses('eaz'))
 allCat.addEventListener('click', () => getAllCat())
 allFavs.addEventListener('click', () => getAllFavs())
 routineAdder.addEventListener('click', () => routineSetUp())

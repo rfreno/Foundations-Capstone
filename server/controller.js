@@ -6,17 +6,36 @@ let routines = [
         difficulty: "Beginner",
         description: "A simple flow to mimic dog stretches",
         poses: ["Downward-Facing Dog", "Upward-Facing Dog"]
+    },
+    {
+        name: "STRETCH",
+        creator: "Karen Reno",
+        difficulty: "Beginner",
+        description: "Loosen up!",
+        poses:["Butterfly", "Cat","Cow","Child's Pose","Corpse","Downward-Facing Dog","Pigeon","Seated Forward Bend","Squat","Standing Forward Bend"]
     }
 ]
 
 module.exports = {
     addposes: (req, res) => {
         poseList.push(req.body)
-        poseList.sort((a,b) => a.id - b.id)
+        // poseList.sort((a,b) => a.id - b.id)
         res.status(200).send()
     },
     getposes: (req, res) => {
         poseList = Array.from(new Set(poseList.map(a => a.id))).map(id => {return poseList.find(a => a.id === id)})
+
+        // if (req.query.foo === 'eaz') {
+        //     console.log('yes')
+        //     poseList.sort((a,b) => a.id - b.id)
+        // } else if (req.params === 'eza') {
+        //     poseList.sort((a,b) => b.id - a.id)
+        // } 
+        // else if (req.params === 'saz') {
+
+        // } else if (req.params === 'sza') {
+
+        // }
         res.status(200).send(poseList)
     },
     togglefav: (req, res) => {

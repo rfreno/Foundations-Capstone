@@ -237,3 +237,10 @@ ul.allthecheckboxes label {
 .poselist {
     padding-left: 50px;
 }
+
+.sort {
+    display:flexbox;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin:20px;
+}

@@ -13,19 +13,19 @@
         <nav>
             <ul>
                 <li>
-                    <a href="#" id="allPoses" class="buttons">POSES</a>
+                    <a href="#poses" id="allPoses" class="buttons">POSES</a>
                 </li>
                 <li>
-                    <a href="#" id="allCat" class="buttons">CATEGORIES</a>
+                    <a href="#categories" id="allCat" class="buttons">CATEGORIES</a>
                 </li>
                 <li>
-                    <a href="#" id="allFavs" class="buttons">FAVORITES</a>
+                    <a href="#favorites" id="allFavs" class="buttons">FAVORITES</a>
                 </li>
                 <li>
-                    <a href="#" id="addButton" class="buttons">ADD ROUTINE</a>
+                    <a href="#add" id="addButton" class="buttons">ADD ROUTINE</a>
                 </li>
                 <li>
-                    <a href="#" id="allRoutines" class="buttons">VIEW ROUTINES</a>
+                    <a href="#routines" id="allRoutines" class="buttons">VIEW ROUTINES</a>
                 </li>
             </ul>
         </nav>
@@ -39,7 +39,34 @@
             <p> Each pose will display its English and corresponding Sanskrit name, a simple visualization, and a list of categories related to that pose.</p>
             <br>
             <p>The rest of this landing page is not yet complete, but that's okay, right?</p>
+
+
+            <p>Select a programming language from the list.</p>
+
+
+<select id="myList" onchange="myFunctiondemo()">
+  <option value="C++">C++</option>
+  <option value="Python">Python</option>
+  <option value="Java">Java</option>
+  <option value="JavaScript">JavaScript</option>
+</select>
+<!-- 
+
+<p>When you select a programming language, a function is triggered which outputs the value of the selected language.</p>
+ -->
+
+<p id="funcdemo"></p>
+
+
+<script>
+function myFunctiondemo() {
+  var x = document.getElementById("myList").value;
+  document.getElementById("funcdemo").innerHTML = "The new selection is: " + x;
+}
+</script>
+
         </section>
+        <section id="sortdropdown" class="sort"></section>
         <section id="displayPoses" class="centersection"></section>
         <section id="displayCat" class="centersection"></section>
         <section id="displayFavs" class="centersection"></section>

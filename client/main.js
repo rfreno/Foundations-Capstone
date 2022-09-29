@@ -233,6 +233,7 @@ const addRoutine = (e) => {
     const beg = document.querySelector('#beg').checked
     const int = document.querySelector('#int').checked
     const adv = document.querySelector('#adv').checked
+    const desc = document.querySelector('#description')
 
     // set var to equal beg, int, or adv - which one is true?
     let difficulty = ''
@@ -242,13 +243,21 @@ const addRoutine = (e) => {
         difficulty = 'Intermediate'
     } else if (adv === true) {
         difficulty = 'Advanced'
+    } else {
+        difficulty = ''
     }
 
     let body = {
         name:  rName.value,
         creator: creator.value,
         difficulty,
+        description: desc.value,
         poses: routinePoses
+    }
+
+    if (body.name === '' || body.creator === '' || difficulty === '') {
+        alert('Required fields must be filled to submit routine.')
+        return
     }
 
     axios.post('/routines', body).then(res => {
@@ -259,29 +268,29 @@ const addRoutine = (e) => {
     routinePoses = []
 }
 
-// const addPosetoRoutine = poseName => {
-//     console.log('adding pose!', poseName)
-//     routinePoses.push(poseName)
-// }
 
 const routineSetUp = () => {
     clearList()
 
     routineForm.innerHTML = `
-    <h2>Fill out the form below to create a routine.</h2>
+    <h2 class='formheading'>Fill out the form below to create a routine.</h2>
+    <p class='small formheading'>Fields marked with a * are required.</p><br>
     <form id='createRoutine'>
-    <label for="rname">Routine title:</label>
+    <label for="rname" class="formlabel" required>*Routine title:</label>
     <input type="text" id="rname" name="rname"><br>
-    <label for="creator">Creator name:</label>
+    <label for="creator" class="formlabel" required>*Creator name:</label>
     <input type="text" id="creator" name="creator"><br><br>
-    <label>Routine Difficulty:</label>
+    <label class="formlabel" required>*Routine Difficulty:</label>
     <input type="radio" id="beg" name="difficulty" value="Beginner">
     <label for="beg">Beginner</label>
     <input type="radio" id="int" name="difficulty" value="Intermediate">
     <label for="int">Intermediate</label>
     <input type="radio" id="adv" name="difficulty" value="Advanced">
     <label for="adv">Advanced</label><br><br>
-    <label for="poses">Select poses to include:</label>
+    <label for="description" class="formlabel">Description:</label>
+    <input type="text" id="description" name="description><br><br>
+
+    <label for="poseCheck" class="formlabel"><br><br>Select poses to include:</label>
     <ul id="poseCheck" class="allthecheckboxes"></ul>
     <input type="submit" value="Submit" onclick="addRoutine" class="routineSubmit">
     </form>
@@ -294,27 +303,12 @@ const routineSetUp = () => {
             let list = document.createElement('li')
             let poseCheck = document.createElement('label')
             poseCheck.classList.add('container')
-            poseCheck.innerHTML = `${res.data[i].name}
+            poseCheck.innerHTML = `
+            ${res.data[i].name}
             <input type="checkbox" name="${res.data[i].name}" class="checkboxes">
             <span class="checkmark"></span>
             `
-            // <label>Boat</label>
-            // poseCheck.innerHTML = `<button onclick="addPosetoRoutine(${res.data[i].name})">${res.data[i].name}</button`
-            // poseCheck.type = "checkbox"
-            // poseCheck.id = res.data[i].id
-            // poseCheck.value = res.data[i].name
-            // poseCheck.name = res.data[i].name
-            // poseCheck.classList.add('checkboxes')
-            // poseCheck.textContent = res.data[i].name
-            // let poseLabel = document.createElement('label')
-            // poseLabel.for = res.data[i].name
-            // // poseLabel.textContent = res.data[i].name
-            // list.append(poseCheck,poseLabel)
             poseCheckboxes.append(poseCheck)
-            // create document selector for checkbox
-            // let selectedPose = document.querySelector(`${res.data[i].id}`)
-            // push to poseSelectorList
-            // selectedPose.addEventListener('click', addPosetoRoutine(selectedPose.value))
         }
     })
 
@@ -340,10 +334,13 @@ const showRoutines = () => {
                 routineName.textContent= res.data[i].name
 
                 const creatorName = document.createElement('h3')
-                creatorName.textContent= res.data[i].creator
+                creatorName.textContent = 'Created by ' + res.data[i].creator
+
+                const desc = document.createElement('h6')
+                desc.textContent= res.data[i].description
 
                 const level = document.createElement('p')
-                level.textContent= res.data[i].difficulty
+                level.textContent = 'Difficulty: ' + res.data[i].difficulty
 
                 const poseList = document.createElement('div')
                 const title = document.createElement('p')
@@ -352,6 +349,7 @@ const showRoutines = () => {
                 
                 res.data[i].poses.forEach(item => {
                     const newItem = document.createElement('p')
+                    newItem.classList.add('poselist')
                     console.log(item)
                     newItem.textContent = item
                     poseList.append(newItem)

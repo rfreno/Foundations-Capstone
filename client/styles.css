@@ -45,7 +45,11 @@ li a {
 }
 
 form {
-    margin-left:50px;
+    margin-left:20px;
+}
+
+.formlabel {
+    font-size: 15pt;
 }
 
 .centersection {
@@ -95,6 +99,7 @@ div > img {
     display:flexbox;
     justify-content: left;
     margin:20px;
+    padding-left: 20px;
 }
 
 .favBtn {
@@ -177,6 +182,7 @@ ul.allthecheckboxes label {
     height: 15px;
     width: 15px;
     background-color: #555b6e;
+    border-radius: 5px;
   }
   
   /* On mouse-over, add a grey background color */
@@ -217,8 +223,17 @@ ul.allthecheckboxes label {
 
 .routineSubmit {
  font-family: lgc;
- height:20px;
- width:auto;
+ font-size: 20pt;
  background-color: #bee3db;
  border-radius: 5px;
+ text-align: center;
+ padding-left: 10px;
+}
+
+.formheading {
+    padding-left:20px;
+}
+
+.poselist {
+    padding-left: 50px;
 }

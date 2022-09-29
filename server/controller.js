@@ -1,5 +1,13 @@
 let poseList = []
-let routines = []
+let routines = [
+    {
+        name: "For the Dogs",
+        creator: "Bek Reno-Winters",
+        difficulty: "Beginner",
+        description: "A simple flow to mimic dog stretches",
+        poses: ["Downward-Facing Dog", "Upward-Facing Dog"]
+    }
+]
 
 module.exports = {
     addposes: (req, res) => {

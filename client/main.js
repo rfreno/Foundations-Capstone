@@ -11,6 +11,7 @@ const displayFavs = document.querySelector('#displayFavs')
 const mainCont = document.querySelector('#main')
 const routineAdder = document.querySelector('#addButton')
 const displayRoutines = document.querySelector('#displayRoutines')
+const routineForm  = document.querySelector('#routineForm')
 const checkboxes = document.getElementsByClassName('checkboxes')
 
 let routinePoses = []
@@ -21,6 +22,7 @@ const clearList = () => {
     displayPoses.innerHTML = ``
     displayCat.innerHTML = ``
     displayFavs.innerHTML = ``
+    routineForm.innerHTML = ``
     displayRoutines.innerHTML = ``
 }
 
@@ -126,7 +128,7 @@ const getAllFavs = () => {
 
             if (res.data.length === 0) {
                 displayFavs.innerHTML = `
-                <p>No poses have been favorited yet! Click on 'Poses' to view the list and select your favorites.</p>
+                <p class="small">No poses have been favorited yet! Click on 'Poses' to view the list and select your favorites.</p>
                 `
             }
     })
@@ -216,15 +218,13 @@ const mouseOff = num => {
     }
 }
 
-
-
 const addRoutine = (e) => {
     e.preventDefault()
     const poseChecks = document.querySelectorAll('.checkboxes')
 
     poseChecks.forEach((checkbox) => {
         if (checkbox.checked === true) {
-            routinePoses.push(checkbox.value)
+            routinePoses.push(checkbox.name)
         }
     })
 
@@ -255,6 +255,8 @@ const addRoutine = (e) => {
         alert(res.data)
     })
     routineSetUp()
+
+    routinePoses = []
 }
 
 // const addPosetoRoutine = poseName => {
@@ -265,24 +267,23 @@ const addRoutine = (e) => {
 const routineSetUp = () => {
     clearList()
 
-    displayRoutines.innerHTML = `
+    routineForm.innerHTML = `
     <h2>Fill out the form below to create a routine.</h2>
     <form id='createRoutine'>
-    <label for="rname">Routine title:</label><br>
+    <label for="rname">Routine title:</label>
     <input type="text" id="rname" name="rname"><br>
-    <label for="creator">Creator name:</label><br>
-    <input type="text" id="creator" name="creator">
-    <p>Choose the routine difficulty level below:</p>
+    <label for="creator">Creator name:</label>
+    <input type="text" id="creator" name="creator"><br><br>
+    <label>Routine Difficulty:</label>
     <input type="radio" id="beg" name="difficulty" value="Beginner">
-    <label for="beg">Beginner</label><br>
+    <label for="beg">Beginner</label>
     <input type="radio" id="int" name="difficulty" value="Intermediate">
-    <label for="int">Intermediate</label><br>
+    <label for="int">Intermediate</label>
     <input type="radio" id="adv" name="difficulty" value="Advanced">
-    <label for="adv">Advanced</label>
-    <p></p>
+    <label for="adv">Advanced</label><br><br>
     <label for="poses">Select poses to include:</label>
-    <div id="poseCheck"></div>
-    <input type="submit" value="Submit" onclick="addRoutine">
+    <ul id="poseCheck" class="allthecheckboxes"></ul>
+    <input type="submit" value="Submit" onclick="addRoutine" class="routineSubmit">
     </form>
     `
     const poseCheckboxes = document.querySelector('#poseCheck')
@@ -290,18 +291,26 @@ const routineSetUp = () => {
     axios.get(`/poses`)
     .then(res => {
         for (let i = 0; i < res.data.length; i++) {
-            let poseCheck = document.createElement('input')
+            let list = document.createElement('li')
+            let poseCheck = document.createElement('label')
+            poseCheck.classList.add('container')
+            poseCheck.innerHTML = `${res.data[i].name}
+            <input type="checkbox" name="${res.data[i].name}" class="checkboxes">
+            <span class="checkmark"></span>
+            `
+            // <label>Boat</label>
             // poseCheck.innerHTML = `<button onclick="addPosetoRoutine(${res.data[i].name})">${res.data[i].name}</button`
-            poseCheck.type = "checkbox"
-            poseCheck.id = res.data[i].id
-            poseCheck.value = res.data[i].name
-            poseCheck.name = res.data[i].name
-            poseCheck.classList.add('checkboxes')
-            poseCheck.textContent = res.data[i].name
-            let poseLabel = document.createElement('label')
-            poseLabel.for = res.data[i].name
-            poseLabel.textContent = res.data[i].name
-            poseCheckboxes.append(poseCheck,poseLabel)
+            // poseCheck.type = "checkbox"
+            // poseCheck.id = res.data[i].id
+            // poseCheck.value = res.data[i].name
+            // poseCheck.name = res.data[i].name
+            // poseCheck.classList.add('checkboxes')
+            // poseCheck.textContent = res.data[i].name
+            // let poseLabel = document.createElement('label')
+            // poseLabel.for = res.data[i].name
+            // // poseLabel.textContent = res.data[i].name
+            // list.append(poseCheck,poseLabel)
+            poseCheckboxes.append(poseCheck)
             // create document selector for checkbox
             // let selectedPose = document.querySelector(`${res.data[i].id}`)
             // push to poseSelectorList
@@ -318,33 +327,35 @@ const showRoutines = () => {
     clearList()
 
     axios.get('/routines').then(res => {
-        for (let i = 0; i < res.data.length; i++) {
-            const thisRoutine = document.createElement('div')
-            const routineName = document.createElement('h2')
-            routineName.textContent= res.data[i].name
-            const creatorName = document.createElement('h3')
-            creatorName.textContent= res.data[i].creator
-            const difficulty = document.createElement('p')
-            difficulty.textContent= res.data[i].difficulty
-            const poseList = document.createElement('div')
-            
-            poseList.innerHTML = `<p>Pose list:</p>`
-            console.log(res.data[i].poses)
-
-            res.data[i].poses.forEach((one) => {
-                const thisone = document.querySelector('p')
-                thisone.textContent = one
-                poseList.append(thisone)
-            })
-
-            // for (let j = 0; j < res.data[i].poses.length; j++) {
-                
-            // }
-
-            thisRoutine.append(routineName, creatorName, difficulty,poseList)
-            displayRoutines.append(thisRoutine)
+        if (res.data.length === 0) {
+            displayRoutines.innerHTML = `<p class="small">There are no routines to display</p>`
         }
-    }
+        else {
+            for (let i = 0; i < res.data.length; i++) {
+                const thisRoutine = document.createElement('div')
+                thisRoutine.classList.add('routineContent')
+
+                const routineName = document.createElement('h2')
+                routineName.textContent= res.data[i].name
+
+                const creatorName = document.createElement('h3')
+                creatorName.textContent= res.data[i].creator
+
+                const difficulty = document.createElement('p')
+                difficulty.textContent= res.data[i].difficulty
+
+                const poseList = document.createElement('div')
+                poseList.innerHTML = `<p>Pose list:</p>`
+                res.data[i].poses.forEach((one) => {
+                    const thisone = document.querySelector('p')
+                    thisone.textContent = one
+                    poseList.append(thisone)
+                })
+
+                thisRoutine.append(routineName, creatorName, difficulty,poseList)
+                displayRoutines.append(thisRoutine)
+            }
+    }}
     )
 }
 

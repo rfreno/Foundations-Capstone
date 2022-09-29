@@ -12,28 +12,20 @@
 
 body {
     background-color: #faf9f9;
-    margin-top:70px;
-    padding: 50px;
     font-family: lgc;
 }
-
-
 /* header styles */
 header {
     background-color: #89b0ae;
-    position: fixed;
+    position:sticky;
     top: 0;
-    left: 0;
-    right: 0;
-    height: 80px;
-    display:flex;
-    padding:10px;
-    align-items: center;
+    margin-bottom: 10px;
 }
 
 header * {
     display:inline;
     padding: 5px;
+    vertical-align: middle;
 }
 
 header img {
@@ -52,7 +44,12 @@ li a {
     text-decoration: none;
 }
 
-section {
+form {
+    margin-left:50px;
+}
+
+.centersection {
+    margin: 20px;
     position:flexbox;
     justify-content: center;
     text-align: center;
@@ -87,6 +84,18 @@ div > img {
     padding:10px;
 }
 
+.routineContent {
+    background-color:#bee3db;
+    border: 1px silver solid;
+    border-radius: 50px;
+    width:50%;
+    box-shadow: 2px 2px #555b6e;
+    padding:10px;
+    display:flexbox;
+    justify-content: left;
+    margin:20px;
+}
+
 .favBtn {
     background-image: url(/heart);
     background-size: cover;
@@ -109,17 +118,10 @@ div > img {
     /* margin:2px; */
 }
 
-/* button > img {
-    width:10px;
-    height:10px;
-    /* margin:auto; */
-/* } */ 
-
 .main {
     background-color: #bee3db;
     border-radius: 20px;
     padding:10px;
-    justify-content:left;
 }
 
 .hide {
@@ -137,12 +139,85 @@ div > img {
     height:25%;
 }
 
-form {
-    /* display:flex; */
-    /* justify-content: left; */
-}
-
 .small {
     font-style:italic;
     font-size: 10pt;
+}
+
+ul.allthecheckboxes label { 
+    border: 1px transparent solid; 
+    display:inline-block;
+    width:40%;
+    list-style-type: none;
+  }
+
+/* The container */
+.container {
+    display: flex;
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 12px;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 15px;
+    width: 15px;
+    background-color: #555b6e;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .container:hover input ~ .checkmark {
+    background-color: #bee3db;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .container input:checked ~ .checkmark {
+    background-color: #99582A;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .container input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .container .checkmark:after {
+    left: 4px;
+    top: 2px;
+    width: 4px;
+    height: 7px;
+    border: solid white;
+    border-width: 0 1px 1px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+
+.routineSubmit {
+ font-family: lgc;
+ height:20px;
+ width:auto;
+ background-color: #bee3db;
+ border-radius: 5px;
 }

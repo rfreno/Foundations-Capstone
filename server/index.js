@@ -11,7 +11,7 @@ const port = process.env.PORT || 5000
 app.use(express.json())
 app.use(cors())
 
-const { addposes, getposes, togglefav, getfavs } = require('./controller')
+const { addposes, getposes, togglefav, getfavs, addroutine, getroutines } = require('./controller')
 
 app.post('/poses', addposes)
 
@@ -20,6 +20,10 @@ app.get('/poses', getposes)
 app.put('/poses/:id', togglefav)
 
 app.get('/favorites', getfavs)
+
+app.post('/routines', addroutine)
+
+app.get('/routines', getroutines)
 
 
 // html end-points
@@ -62,10 +66,5 @@ app.get('/axiosnodes', (req, res) => {
 app.get('/main', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/main.js'))
 })
-// app.get('/allPoses', (req, res) => {
-//     console.log(res.body)
-//     res.send(res.body)
-// })
-
 
 app.listen(port, () => console.log('Listening on port ' + port))

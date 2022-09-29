@@ -4,16 +4,16 @@
 const allPoses = document.querySelector('#allPoses')
 const allCat = document.querySelector('#allCat')
 const allFavs = document.querySelector('#allFavs')
-const seeRoutines = document.querySelector('#routines')
+const allRoutines = document.querySelector('#allRoutines')
 const displayPoses = document.querySelector('#displayPoses')
 const displayCat = document.querySelector('#displayCat')
 const displayFavs = document.querySelector('#displayFavs')
 const mainCont = document.querySelector('#main')
-const routines = document.querySelector('#displayRoutines')
+const routineAdder = document.querySelector('#addButton')
+const displayRoutines = document.querySelector('#displayRoutines')
+const checkboxes = document.getElementsByClassName('checkboxes')
 
-
-let poselist = []
-let favList = []
+let routinePoses = []
 
 // front-end functions
 const clearList = () => {
@@ -195,6 +195,10 @@ const moused = num => {
         allCat.classList.add('moused')
     } else if (num === 3) {
         allFavs.classList.add('moused')
+    } else if (num === 4) {
+        routineAdder.classList.add('moused')
+    } else if (num === 5) {
+        allRoutines.classList.add('moused')
     }
 }
 
@@ -205,16 +209,65 @@ const mouseOff = num => {
         allCat.classList.remove('moused')
     } else if (num === 3) {
         allFavs.classList.remove('moused')
+    } else if (num === 4) {
+        routineAdder.classList.remove('moused')
+    } else if (num === 5) {
+        allRoutines.classList.remove('moused')
     }
 }
+
+
+
+const addRoutine = (e) => {
+    e.preventDefault()
+    const poseChecks = document.querySelectorAll('.checkboxes')
+
+    poseChecks.forEach((checkbox) => {
+        if (checkbox.checked === true) {
+            routinePoses.push(checkbox.value)
+        }
+    })
+
+    const rName = document.querySelector('#rname')
+    const creator = document.querySelector('#creator')
+    const beg = document.querySelector('#beg').checked
+    const int = document.querySelector('#int').checked
+    const adv = document.querySelector('#adv').checked
+
+    // set var to equal beg, int, or adv - which one is true?
+    let difficulty = ''
+    if (beg === true) {
+        difficulty = 'Beginner'
+    } else if (int === true) {
+        difficulty = 'Intermediate'
+    } else if (adv === true) {
+        difficulty = 'Advanced'
+    }
+
+    let body = {
+        name:  rName.value,
+        creator: creator.value,
+        difficulty,
+        poses: routinePoses
+    }
+
+    axios.post('/routines', body).then(res => {
+        alert(res.data)
+    })
+    routineSetUp()
+}
+
+// const addPosetoRoutine = poseName => {
+//     console.log('adding pose!', poseName)
+//     routinePoses.push(poseName)
+// }
 
 const routineSetUp = () => {
     clearList()
 
-    
     displayRoutines.innerHTML = `
     <h2>Fill out the form below to create a routine.</h2>
-    <form>
+    <form id='createRoutine'>
     <label for="rname">Routine title:</label><br>
     <input type="text" id="rname" name="rname"><br>
     <label for="creator">Creator name:</label><br>
@@ -229,36 +282,70 @@ const routineSetUp = () => {
     <p></p>
     <label for="poses">Select poses to include:</label>
     <div id="poseCheck"></div>
-    <input type="submit" value="Submit">
+    <input type="submit" value="Submit" onclick="addRoutine">
+    </form>
     `
-    // const poseSelector = document.querySelector('#poseSelect')
     const poseCheckboxes = document.querySelector('#poseCheck')
-
+    
     axios.get(`/poses`)
-        .then(res => {
-            console.log(res.data)
-            for (let i = 0; i < res.data.length; i++) {
-                // let poseOption = document.createElement('option')
-                // poseOption.id = res.data[i].id
-                // poseOption.value = res.data[i].name
-                // poseOption.textContent = res.data[i].name
-                // poseSelector.add(poseOption)
+    .then(res => {
+        for (let i = 0; i < res.data.length; i++) {
+            let poseCheck = document.createElement('input')
+            // poseCheck.innerHTML = `<button onclick="addPosetoRoutine(${res.data[i].name})">${res.data[i].name}</button`
+            poseCheck.type = "checkbox"
+            poseCheck.id = res.data[i].id
+            poseCheck.value = res.data[i].name
+            poseCheck.name = res.data[i].name
+            poseCheck.classList.add('checkboxes')
+            poseCheck.textContent = res.data[i].name
+            let poseLabel = document.createElement('label')
+            poseLabel.for = res.data[i].name
+            poseLabel.textContent = res.data[i].name
+            poseCheckboxes.append(poseCheck,poseLabel)
+            // create document selector for checkbox
+            // let selectedPose = document.querySelector(`${res.data[i].id}`)
+            // push to poseSelectorList
+            // selectedPose.addEventListener('click', addPosetoRoutine(selectedPose.value))
+        }
+    })
 
-                let poseCheck = document.createElement('input')
-                poseCheck.type = "checkbox"
-                poseCheck.id = res.data[i].id
-                poseCheck.value = res.data[i].name
-                poseCheck.name = res.data[i].name
-                poseCheck.textContent = res.data[i].name
-                let poseLabel = document.createElement('label')
-                poseLabel.for = res.data[i].name
-                poseLabel.textContent = res.data[i].name
-                poseCheckboxes.append(poseCheck, poseLabel)
-            }
-        })
+    const form = document.querySelector('form')
+    form.addEventListener('submit', addRoutine)
 
-    // post new routine object to backend
+}
 
+const showRoutines = () => {
+    clearList()
+
+    axios.get('/routines').then(res => {
+        for (let i = 0; i < res.data.length; i++) {
+            const thisRoutine = document.createElement('div')
+            const routineName = document.createElement('h2')
+            routineName.textContent= res.data[i].name
+            const creatorName = document.createElement('h3')
+            creatorName.textContent= res.data[i].creator
+            const difficulty = document.createElement('p')
+            difficulty.textContent= res.data[i].difficulty
+            const poseList = document.createElement('div')
+            
+            poseList.innerHTML = `<p>Pose list:</p>`
+            console.log(res.data[i].poses)
+
+            res.data[i].poses.forEach((one) => {
+                const thisone = document.querySelector('p')
+                thisone.textContent = one
+                poseList.append(thisone)
+            })
+
+            // for (let j = 0; j < res.data[i].poses.length; j++) {
+                
+            // }
+
+            thisRoutine.append(routineName, creatorName, difficulty,poseList)
+            displayRoutines.append(thisRoutine)
+        }
+    }
+    )
 }
 
 getAllPoses()
@@ -267,16 +354,18 @@ getAllPoses()
 allPoses.addEventListener('click', () => showPoses())
 allCat.addEventListener('click', () => getAllCat())
 allFavs.addEventListener('click', () => getAllFavs())
-seeRoutines.addEventListener('click', () => routineSetUp())
+routineAdder.addEventListener('click', () => routineSetUp())
+allRoutines.addEventListener('click', () => showRoutines())
 
 allPoses.addEventListener('mouseover', () => moused(1))
 allCat.addEventListener('mouseover', () => moused(2))
 allFavs.addEventListener('mouseover', () => moused(3))
+routineAdder.addEventListener('mouseover', () => moused(4))
+allRoutines.addEventListener('mouseover', () => moused(5))
 
 allPoses.addEventListener('mouseout', () => mouseOff(1))
 allCat.addEventListener('mouseout', () => mouseOff(2))
 allFavs.addEventListener('mouseout', () => mouseOff(3))
+routineAdder.addEventListener('mouseout', () => mouseOff(4))
+allRoutines.addEventListener('mouseout', () => mouseOff(5))
 
-// old selector for routines
-// <p class="small">Hold down the Ctrl (windows) or Command (Mac) button to select multiple options.</p>
-// <select name="selectedPoses" id="poseSelect" multiple></select>

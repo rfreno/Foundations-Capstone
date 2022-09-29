@@ -1,4 +1,5 @@
 let poseList = []
+let routines = []
 
 module.exports = {
     addposes: (req, res) => {
@@ -24,6 +25,13 @@ module.exports = {
     getfavs: (req,res) => {
         let favorites = poseList.filter((pose) => pose.fav === true)
         res.status(200).send(favorites)
+    },
+    addroutine: (req, res) => {
+        routines.push(req.body)
+        res.status(200).send('Routine added!')
+    },
+    getroutines: (req, res) => {
+        res.status(200).send(routines)
     }
 }
 

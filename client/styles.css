@@ -253,3 +253,8 @@ ul.allthecheckboxes label {
     justify-content: flex-start;
     margin:20px;
 }
+
+.padded {
+    padding-left: 5%;
+    padding-right: 5%;
+}

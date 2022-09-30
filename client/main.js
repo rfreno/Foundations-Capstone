@@ -80,7 +80,7 @@ const showPoses = () => {
                 
                 const headerName = document.createElement('h3')
                 headerName.textContent = `${res.data[i].name} (${res.data[i].sanskrit})`
-                
+
                 const favBtn = document.createElement('button')
                 if (res.data[i].fav === false) {
                     favBtn.classList.add('favBtn')
@@ -98,6 +98,7 @@ const showPoses = () => {
                 thisPose.append(image)
                 
                 const categories = document.createElement('p')
+                categories.classList.add('padded')
                 for (let j = 0; j < res.data[i].cats.length; j++) {
                     categories.textContent += res.data[i].cats[j].name 
                     

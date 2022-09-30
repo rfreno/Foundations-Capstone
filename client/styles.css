@@ -67,7 +67,8 @@ div > img {
     display:flex;
     align-items: center;
     justify-content: center;
-    padding:10px;
+    padding-left:15%;
+    padding-right:15%;
 }
 
 .poseContent {
@@ -78,6 +79,7 @@ div > img {
     box-shadow: 2px 2px 2px 2px #555b6e;
     width:33%;
     display:inline-block;
+    position:relative;
 }
 
 .catContent {
@@ -93,11 +95,11 @@ div > img {
     background-color:#bee3db;
     border: 1px silver solid;
     border-radius: 50px;
-    width:50%;
+    width:30%;
     box-shadow: 2px 2px #555b6e;
-    padding:10px;
-    display:flexbox;
-    justify-content: left;
+    /* padding:10px; */
+    display:inline-block;
+    vertical-align: top;
     margin:20px;
     padding-left: 20px;
 }
@@ -106,22 +108,28 @@ div > img {
     background-image: url(/heart);
     background-size: cover;
     /* background-size:20px; */
-    width:35px;
-    height:35px;
-    border-radius: 48%;
+    width:20px;
+    height:20px;
+    border-radius: 35%;
     background-color: #faf9f9;
     margin:2px;
+    position:absolute;
+    top:8%;
+    right:8%;
 }
 
 .favorited {
     background-image: url(/love);
     background-size: cover;
     /* background-size:80%; */
-    width:35px;
-    height:35px;
-    border-radius: 48%;
+    width:20px;
+    height:20px;
+    border-radius: 35%;
     background-color: #faf9f9;
     /* margin:2px; */
+    position:absolute;
+    top:8%;
+    right:8%;
 }
 
 .main {
@@ -143,6 +151,7 @@ div > img {
     display:inline-block;
     width:25%;
     height:25%;
+    position: relative;
 }
 
 .small {

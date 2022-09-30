@@ -9,7 +9,7 @@
     </head>
 
     <header>
-        <img src="/headericon">
+        <a href="/"><img src="/headericon"></a>
         <nav>
             <ul>
                 <li>
@@ -37,35 +37,15 @@
             <h2>Welcome to my little site.</h2>
             <h3>Select 'Poses' to view a list of common yoga poses. </h3>
             <p> Each pose will display its English and corresponding Sanskrit name, a simple visualization, and a list of categories related to that pose.</p>
-            <br>
-            <p>The rest of this landing page is not yet complete, but that's okay, right?</p>
-
-
-            <p>Select a programming language from the list.</p>
-
-
-<select id="myList" onchange="myFunctiondemo()">
-  <option value="C++">C++</option>
-  <option value="Python">Python</option>
-  <option value="Java">Java</option>
-  <option value="JavaScript">JavaScript</option>
-</select>
-<!-- 
-
-<p>When you select a programming language, a function is triggered which outputs the value of the selected language.</p>
- -->
-
-<p id="funcdemo"></p>
-
-
-<script>
-function myFunctiondemo() {
-  var x = document.getElementById("myList").value;
-  document.getElementById("funcdemo").innerHTML = "The new selection is: " + x;
-}
-</script>
+            <h3>Select 'Categories' to view a list of basic yoga categories.</h3>
+            <h3>Select 'Favorites' to view all poses that have been favorited on the 'Poses' page.</h3>
+            <h3>Select 'Add Routine' to complete the form to create a new routine.</h3>
+            <p>Fill out the routine title, creator name, difficulty, and included poses to submit a new routine.</p>
+            <h3>Select 'View Routines' to see a list of routines that have been submitted to date.</h3>
+            <p>Routines are listed in order by date posted, oldest to newest.</p>
 
         </section>
+
         <section id="sortdropdown" class="sort"></section>
         <section id="displayPoses" class="centersection"></section>
         <section id="displayCat" class="centersection"></section>

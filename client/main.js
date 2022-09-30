@@ -80,6 +80,7 @@ const showPoses = () => {
                 
                 const headerName = document.createElement('h3')
                 headerName.textContent = `${res.data[i].name} (${res.data[i].sanskrit})`
+                
                 const favBtn = document.createElement('button')
                 if (res.data[i].fav === false) {
                     favBtn.classList.add('favBtn')
@@ -89,8 +90,8 @@ const showPoses = () => {
                 }
                 favBtn.addEventListener('click', () => favorited(favBtn, res.data[i], false))
                 
-                poseHeader.append(headerName,favBtn)
-                thisPose.append(poseHeader)
+                poseHeader.append(headerName)
+                thisPose.append(poseHeader, favBtn)
                 
                 const image = document.createElement('img')
                 image.src = res.data[i].img
@@ -235,6 +236,53 @@ const mouseOff = num => {
     }
 }
 
+const routineSetUp = () => {
+    clearList()
+
+    routineForm.innerHTML = `
+    <h2 class='formheading'>Fill out the form below to create a routine.</h2>
+    <p class='small formheading'>Fields marked with a * are required.</p><br>
+    <form id='createRoutine'>
+    <label for="rname" class="formlabel" required>*Routine title:</label>
+    <input type="text" id="rname" name="rname"><br>
+    <label for="creator" class="formlabel" required>*Creator name:</label>
+    <input type="text" id="creator" name="creator"><br><br>
+    <label class="formlabel" required>*Routine Difficulty:</label>
+    <input type="radio" id="beg" name="difficulty" value="Beginner">
+    <label for="beg">Beginner</label>
+    <input type="radio" id="int" name="difficulty" value="Intermediate">
+    <label for="int">Intermediate</label>
+    <input type="radio" id="adv" name="difficulty" value="Advanced">
+    <label for="adv">Advanced</label><br><br>
+    <label for="description" class="formlabel">Description:</label>
+    <input type="text" id="description" name="description">
+    <label for="poseCheck" class="formlabel"><br><br>Select poses to include:</label>
+    <ul id="poseCheck" class="allthecheckboxes"></ul>
+    <input type="submit" value="Submit" onclick="addRoutine" class="routineSubmit">
+    </form>
+    `
+    const poseCheckboxes = document.querySelector('#poseCheck')
+    
+    axios.get(`/poses`)
+    .then(res => {
+        for (let i = 0; i < res.data.length; i++) {
+            let list = document.createElement('li')
+            let poseCheck = document.createElement('label')
+            poseCheck.classList.add('container')
+            poseCheck.innerHTML = `
+            ${res.data[i].name}
+            <input type="checkbox" name="${res.data[i].name}" class="checkboxes">
+            <span class="checkmark"></span>
+            `
+            poseCheckboxes.append(poseCheck)
+        }
+    })
+
+    const form = document.querySelector('form')
+    form.addEventListener('submit', addRoutine)
+
+}
+
 const addRoutine = (e) => {
     e.preventDefault()
     const poseChecks = document.querySelectorAll('.checkboxes')
@@ -285,54 +333,6 @@ const addRoutine = (e) => {
     routinePoses = []
 }
 
-const routineSetUp = () => {
-    clearList()
-
-    routineForm.innerHTML = `
-    <h2 class='formheading'>Fill out the form below to create a routine.</h2>
-    <p class='small formheading'>Fields marked with a * are required.</p><br>
-    <form id='createRoutine'>
-    <label for="rname" class="formlabel" required>*Routine title:</label>
-    <input type="text" id="rname" name="rname"><br>
-    <label for="creator" class="formlabel" required>*Creator name:</label>
-    <input type="text" id="creator" name="creator"><br><br>
-    <label class="formlabel" required>*Routine Difficulty:</label>
-    <input type="radio" id="beg" name="difficulty" value="Beginner">
-    <label for="beg">Beginner</label>
-    <input type="radio" id="int" name="difficulty" value="Intermediate">
-    <label for="int">Intermediate</label>
-    <input type="radio" id="adv" name="difficulty" value="Advanced">
-    <label for="adv">Advanced</label><br><br>
-    <label for="description" class="formlabel">Description:</label>
-    <input type="text" id="description" name="description><br><br>
-
-    <label for="poseCheck" class="formlabel"><br><br>Select poses to include:</label>
-    <ul id="poseCheck" class="allthecheckboxes"></ul>
-    <input type="submit" value="Submit" onclick="addRoutine" class="routineSubmit">
-    </form>
-    `
-    const poseCheckboxes = document.querySelector('#poseCheck')
-    
-    axios.get(`/poses`)
-    .then(res => {
-        for (let i = 0; i < res.data.length; i++) {
-            let list = document.createElement('li')
-            let poseCheck = document.createElement('label')
-            poseCheck.classList.add('container')
-            poseCheck.innerHTML = `
-            ${res.data[i].name}
-            <input type="checkbox" name="${res.data[i].name}" class="checkboxes">
-            <span class="checkmark"></span>
-            `
-            poseCheckboxes.append(poseCheck)
-        }
-    })
-
-    const form = document.querySelector('form')
-    form.addEventListener('submit', addRoutine)
-
-}
-
 const showRoutines = () => {
     clearList()
 
@@ -349,13 +349,13 @@ const showRoutines = () => {
                 const routineName = document.createElement('h2')
                 routineName.textContent= res.data[i].name
 
-                const creatorName = document.createElement('h3')
+                const creatorName = document.createElement('h4')
                 creatorName.textContent = 'Created by ' + res.data[i].creator
 
-                const desc = document.createElement('h4')
+                const desc = document.createElement('h5')
                 desc.textContent= res.data[i].description
 
-                const level = document.createElement('p')
+                const level = document.createElement('h4')
                 level.textContent = 'Difficulty: ' + res.data[i].difficulty
 
                 const poseList = document.createElement('div')

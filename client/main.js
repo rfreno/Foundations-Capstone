@@ -50,7 +50,8 @@ const getAllPoses = () => {
 }})}
 
 const showPoses = () => {
-    clearList()
+    getAllPoses()
+    // clearList()
 
     // sortBox.innerHTML = `
     //     <label>Sort By:</label>
@@ -113,7 +114,7 @@ const showPoses = () => {
 }
 
 const getAllFavs = () => {
-    clearList()
+    // clearList()
     axios.get(`/favorites`)
         .then(res => {
             // console.log(res)
@@ -156,8 +157,8 @@ const getAllFavs = () => {
 }
 
 const getAllCat = () => {
-    clearList()
-    mainCont.classList.add('hide')
+    // clearList()
+    // mainCont.classList.add('hide')
     
     axios.get(`https://lightning-yoga-api.herokuapp.com/yoga_categories`) 
     .then(res => {
@@ -238,7 +239,7 @@ const mouseOff = num => {
 }
 
 const routineSetUp = () => {
-    clearList()
+    // clearList()
 
     routineForm.innerHTML = `
     <h2 class='formheading'>Fill out the form below to create a routine.</h2>
@@ -335,14 +336,14 @@ const addRoutine = (e) => {
 }
 
 const showRoutines = () => {
-    clearList()
+    // clearList()
 
     axios.get('/routines').then(res => {
         if (res.data.length === 0) {
             displayRoutines.innerHTML = `<p class="small">There are no routines to display</p>`
         }
         else {
-            console.log(res.data)
+            // console.log(res.data)
             for (let i = 0; i < res.data.length; i++) {
                 const thisRoutine = document.createElement('div')
                 thisRoutine.classList.add('routineContent')
@@ -367,7 +368,7 @@ const showRoutines = () => {
                 res.data[i].poses.forEach(item => {
                     const newItem = document.createElement('p')
                     newItem.classList.add('poselist')
-                    console.log(item)
+                    // console.log(item)
                     newItem.textContent = item
                     poseList.append(newItem)
                 })
@@ -379,14 +380,14 @@ const showRoutines = () => {
     )
 }
 
-getAllPoses()
+
 
 // event listeners
-allPoses.addEventListener('click', () => showPoses('eaz'))
-allCat.addEventListener('click', () => getAllCat())
-allFavs.addEventListener('click', () => getAllFavs())
-routineAdder.addEventListener('click', () => routineSetUp())
-allRoutines.addEventListener('click', () => showRoutines())
+// allPoses.addEventListener('click', () => showPoses('eaz'))
+// allCat.addEventListener('click', () => getAllCat())
+// allFavs.addEventListener('click', () => getAllFavs())
+// routineAdder.addEventListener('click', () => routineSetUp())
+// allRoutines.addEventListener('click', () => showRoutines())
 
 allPoses.addEventListener('mouseover', () => moused(1))
 allCat.addEventListener('mouseover', () => moused(2))
@@ -399,4 +400,3 @@ allCat.addEventListener('mouseout', () => mouseOff(2))
 allFavs.addEventListener('mouseout', () => mouseOff(3))
 routineAdder.addEventListener('mouseout', () => mouseOff(4))
 allRoutines.addEventListener('mouseout', () => mouseOff(5))
-

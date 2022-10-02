@@ -95,7 +95,7 @@ div > img {
     background-color:#bee3db;
     border: 1px silver solid;
     border-radius: 50px;
-    width:30%;
+    width:20%;
     box-shadow: 2px 2px #555b6e;
     /* padding:10px; */
     display:inline-block;
@@ -196,7 +196,7 @@ ul.allthecheckboxes label {
   
   /* On mouse-over, add a grey background color */
   .container:hover input ~ .checkmark {
-    background-color: #bee3db;
+    background-color: #cb722a;
   }
   
   /* When the checkbox is checked, add a blue background */
@@ -233,10 +233,11 @@ ul.allthecheckboxes label {
 .routineSubmit {
  font-family: lgc;
  font-size: 20pt;
- background-color: #bee3db;
+ background-color: #cb722a;
  border-radius: 5px;
  text-align: center;
- padding-left: 10px;
+ margin-left: 30px;
+ color:#ffd4d4;
 }
 
 .formheading {

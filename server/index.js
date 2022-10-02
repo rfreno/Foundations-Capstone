@@ -30,18 +30,21 @@ app.get('/routines', getroutines)
 app.get('/', (req,res) => {
     res.sendFile(path.join(__dirname, '../client/index.html'))
 })
-// app.get('/routinesPage', (req,res) => {
-//     res.sendFile(path.join(__dirname, '../client/routines.html'))
-// })
-// app.get('/posesPage', (req,res) => {
-//     res.sendFile(path.join(__dirname, '../client/poses.html'))
-// })
-// app.get('/categoriesPage', (req,res) => {
-//     res.sendFile(path.join(__dirname, '../client/categories.html'))
-// })
-// app.get('/favoritesPage', (req,res) => {
-//     res.sendFile(path.join(__dirname, '../client/favorites.html'))
-// })
+app.get('/poseList', (req,res) => {
+    res.sendFile(path.join(__dirname, '../client/poses.html'))
+})
+app.get('/categories', (req,res) => {
+    res.sendFile(path.join(__dirname, '../client/categories.html'))
+})
+app.get('/favoriteList', (req,res) => {
+    res.sendFile(path.join(__dirname, '../client/favorites.html'))
+})
+app.get('/routineform', (req,res) => {
+    res.sendFile(path.join(__dirname, '../client/form.html'))
+})
+app.get('/routineList', (req,res) => {
+    res.sendFile(path.join(__dirname, '../client/routines.html'))
+})
 app.get('/css', (req,res) => {
     res.sendFile(path.join(__dirname, '../client/styles.css'))
 })

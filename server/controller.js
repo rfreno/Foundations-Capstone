@@ -13,6 +13,13 @@ let routines = [
         difficulty: "Beginner",
         description: "Loosen up!",
         poses:["Butterfly", "Cat","Cow","Child's Pose","Corpse","Downward-Facing Dog","Pigeon","Seated Forward Bend","Squat","Standing Forward Bend"]
+    },
+    {
+        name: "The Zoo",
+        creator: "Old McDonald",
+        difficulty: "Intermediate",
+        description: "You want an animal? We got 'em!",
+        poses:["Butterfly","Camel","Cat","Cow","Crow","Dolphin","Downward-Facing Dog","Eagle","Pigeon","King Pigeon","Half Lord of the Fishes","Sphinx","Upward-Facing Dog","Wild Thing"]
     }
 ]
 

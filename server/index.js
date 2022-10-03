@@ -48,6 +48,9 @@ app.get('/routineList', (req,res) => {
 app.get('/css', (req,res) => {
     res.sendFile(path.join(__dirname, '../client/styles.css'))
 })
+app.get('/background', (req, res) => {
+    res.sendFile(path.join(__dirname,'../client/images/background.png'))
+})
 app.get('/headericon', (req,res) => {
     res.sendFile(path.join(__dirname, '../client/images/yogaIcon.jpeg'))
 })
@@ -68,6 +71,12 @@ app.get('/axiosnodes', (req, res) => {
 })
 app.get('/main', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/main.js'))
+})
+app.get('/sortlist', (req,res) => {
+    res.sendFile(path.join(__dirname, '../client/sort-list.js'))
+})
+app.get('/testing', (req,res) => {
+    res.sendFile(path.join(__dirname, '../client/nav.html'))
 })
 
 app.listen(port, () => console.log('Listening on port ' + port))

@@ -5,36 +5,59 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/css"/>
-        <title>BRW Yoga Basics</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="/sortlist"></script>
+        <title>BRW Yoga Routines</title>
+        
     </head>
 
     <header>
-        <a href="/"><img src="/headericon"></a>
-        <nav>
-            <ul>
-                <li>
-                    <a href="/poseList" id="allPoses" class="buttons">POSES</a>
-                </li>
-                <li>
-                    <a href="/categories" id="allCat" class="buttons">CATEGORIES</a>
-                </li>
-                <li>
-                    <a href="/favoriteList" id="allFavs" class="buttons">FAVORITES</a>
-                </li>
-                <li>
-                    <a href="/routineform" id="addButton" class="buttons">ADD ROUTINE</a>
-                </li>
-                <li>
-                    <a href="/routineList" id="allRoutines" class="buttons">VIEW ROUTINES</a>
-                </li>
-            </ul>
-        </nav>
+        <div class="topnav" id="myTopnav">
+            <a href="/" class="nopad"><img src="/headericon"></a>
+            <a href="/poseList" id="allPoses" class="buttons ">POSES</a>
+            <a href="/categories" id="allCat" class="buttons ">CATEGORIES</a>
+            <a href="/favoriteList" id="allFavs" class="buttons ">FAVORITES</a>
+            <a href="/routineform" id="addButton" class="buttons ">ADD ROUTINE</a>
+            <a href="/routineList" id="allRoutines" class="buttons ">VIEW ROUTINES</a>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+              <i class="fa fa-bars"></i>
+            </a>
+          </div>
     </header>
-<body onload="showRoutines()">
-    <section id="displayRoutines"></section>
-    <script src="/axiosnodes"></script>
-    <script src="/main"></script>
-</body>
 
+    <body onload="showRoutines()">
+<!-- 
+        <div class="routineContent"><h2>STRETCH</h2><h4>Created by Karen Reno</h4><h4>Difficulty: Beginner</h4><h5>Loosen up!</h5><div><p>Pose List:</p><ul id="sortlist" class="slist"><li draggable="true" class="poselist">Butterfly</li><li draggable="true" class="poselist">Cat</li><li draggable="true" class="poselist">Cow</li><li draggable="true" class="poselist">Child's Pose</li><li draggable="true" class="poselist">Corpse</li><li draggable="true" class="poselist">Downward-Facing Dog</li><li draggable="true" class="poselist">Pigeon</li><li draggable="true" class="poselist">Seated Forward Bend</li><li draggable="true" class="poselist">Squat</li><li draggable="true" class="poselist">Standing Forward Bend</li></ul></div></div>  -->
+
+        <section id="displayRoutines"></section>
+        <script src="/axiosnodes"></script>
+        <script src="/main"></script>
+
+        <script>
+            window.addEventListener("DOMContentLoaded", () => {
+                slist(document.getElementById("sortlist"));
+                console.log('loaded')
+            });
+        </script>
+
+    </body>
 
 </html>
+
+
+
+<!-- busan korea
+naga phillipines
+santiago phillipines
+nigeria
+peru
+buenos airres
+brazil
+brazel
+guatemala
+jacksonville
+grand rapids
+nv
+tacoma
+
+mexico city - 4 more -->

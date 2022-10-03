@@ -157,9 +157,6 @@ const getAllFavs = () => {
 }
 
 const getAllCat = () => {
-    // clearList()
-    // mainCont.classList.add('hide')
-    
     axios.get(`https://lightning-yoga-api.herokuapp.com/yoga_categories`) 
     .then(res => {
         for (let i = 0; i < res.data.items.length; i++) {
@@ -335,6 +332,62 @@ const addRoutine = (e) => {
     routinePoses = []
 }
 
+function slist (target) {
+    // (A) SET CSS + GET ALL LIST ITEMS
+    target.classList.add("slist");
+    let items = target.getElementsByTagName("li"), current = null;
+  
+    // (B) MAKE ITEMS DRAGGABLE + SORTABLE
+    for (let i of items) {
+      // (B1) ATTACH DRAGGABLE
+      i.draggable = true;
+  
+      // (B2) DRAG START - YELLOW HIGHLIGHT DROPZONES
+      i.ondragstart = (ev) => {
+        current = i;
+        for (let it of items) {
+          if (it != current) { it.classList.add("hint"); }
+        }
+      };
+  
+      // (B3) DRAG ENTER - RED HIGHLIGHT DROPZONE
+      i.ondragenter = (ev) => {
+        if (i != current) { i.classList.add("active"); }
+      };
+  
+      // (B4) DRAG LEAVE - REMOVE RED HIGHLIGHT
+      i.ondragleave = () => {
+        i.classList.remove("active");
+      };
+  
+      // (B5) DRAG END - REMOVE ALL HIGHLIGHTS
+      i.ondragend = () => { for (let it of items) {
+        it.classList.remove("hint");
+        it.classList.remove("active");
+      }};
+  
+      // (B6) DRAG OVER - PREVENT THE DEFAULT "DROP", SO WE CAN DO OUR OWN
+      i.ondragover = (evt) => { evt.preventDefault(); };
+  
+      // (B7) ON DROP - DO SOMETHING
+      i.ondrop = (evt) => {
+        evt.preventDefault();
+        if (i != current) {
+          let currentpos = 0, droppedpos = 0;
+          for (let it=0; it<items.length; it++) {
+            if (current == items[it]) { currentpos = it; }
+            if (i == items[it]) { droppedpos = it; }
+          }
+          if (currentpos < droppedpos) {
+            i.parentNode.insertBefore(current, i.nextSibling);
+          } else {
+            i.parentNode.insertBefore(current, i);
+          }
+        }
+      };
+    }
+  }
+
 const showRoutines = () => {
     // clearList()
 
@@ -343,7 +396,6 @@ const showRoutines = () => {
             displayRoutines.innerHTML = `<p class="small">There are no routines to display</p>`
         }
         else {
-            // console.log(res.data)
             for (let i = 0; i < res.data.length; i++) {
                 const thisRoutine = document.createElement('div')
                 thisRoutine.classList.add('routineContent')
@@ -364,21 +416,36 @@ const showRoutines = () => {
                 const title = document.createElement('p')
                 title.textContent = 'Pose List:'
                 poseList.append(title)
+                const orderlist = document.createElement('ul')
+                orderlist.id ='sortlist'
+                orderlist.classList.add('slist')
                 
                 res.data[i].poses.forEach(item => {
-                    const newItem = document.createElement('p')
+                    const newItem = document.createElement('li')
+                    newItem.draggable = true
                     newItem.classList.add('poselist')
-                    // console.log(item)
                     newItem.textContent = item
-                    poseList.append(newItem)
+                    orderlist.append(newItem)
                 })
+                poseList.append(orderlist)
 
                 thisRoutine.append(routineName, creatorName, level, desc, poseList)
                 displayRoutines.append(thisRoutine)
+                slist(orderlist)
+
             }
     }}
     )
 }
+
+function myFunction() {
+    var x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+      x.className += " responsive";
+    } else {
+      x.className = "topnav";
+    }
+  }
 
 
 

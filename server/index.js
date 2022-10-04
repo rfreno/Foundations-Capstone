@@ -11,7 +11,7 @@ const port = process.env.PORT || 5000
 app.use(express.json())
 app.use(cors())
 
-const { addposes, getposes, togglefav, getfavs, addroutine, getroutines } = require('./controller')
+const { addposes, getposes, togglefav, getfavs, addroutine, getroutines, arcroutine, getarchives } = require('./controller')
 
 app.post('/poses', addposes)
 
@@ -24,6 +24,10 @@ app.get('/favorites', getfavs)
 app.post('/routines', addroutine)
 
 app.get('/routines', getroutines)
+
+app.put('/routines/:id', arcroutine)
+
+app.get('/archives', getarchives)
 
 
 // html end-points
@@ -58,7 +62,7 @@ app.get('/heart', (req,res) => {
     res.sendFile(path.join(__dirname, '../client/images/heart.png'))
 })
 app.get('/love', (req,res) => {
-    res.sendFile(path.join(__dirname, '../client/images/love.png'))
+    res.sendFile(path.join(__dirname, '../client/images/purple.png'))
 })
 app.get('/lgc', (req,res) => {
     res.sendFile(path.join(__dirname, '../client/fonts/Louis\ George\ Cafe.ttf'))

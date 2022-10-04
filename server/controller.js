@@ -1,6 +1,7 @@
 let poseList = []
 let routines = [
     {
+        id: 1,
         name: "For the Dogs",
         creator: "Bek Reno-Winters",
         difficulty: "Beginner",
@@ -8,6 +9,7 @@ let routines = [
         poses: ["Downward-Facing Dog", "Upward-Facing Dog"]
     },
     {
+        id:2,
         name: "STRETCH",
         creator: "Karen Reno",
         difficulty: "Beginner",
@@ -15,6 +17,7 @@ let routines = [
         poses:["Butterfly", "Cat","Cow","Child's Pose","Corpse","Downward-Facing Dog","Pigeon","Seated Forward Bend","Squat","Standing Forward Bend"]
     },
     {
+        id:3,
         name: "The Zoo",
         creator: "Old McDonald",
         difficulty: "Intermediate",
@@ -22,6 +25,8 @@ let routines = [
         poses:["Butterfly","Camel","Cat","Cow","Crow","Dolphin","Downward-Facing Dog","Eagle","Pigeon","King Pigeon","Half Lord of the Fishes","Sphinx","Upward-Facing Dog","Wild Thing"]
     }
 ]
+
+let archives = []
 
 module.exports = {
     addposes: (req, res) => {
@@ -66,6 +71,22 @@ module.exports = {
     },
     getroutines: (req, res) => {
         res.status(200).send(routines)
+    },
+    arcroutine: (req, res) => {
+        // console.log(req.params.id)
+        console.log(req.params.id)
+        let index = routines.findIndex(elem => elem.id === req.params.id)
+        console.log(index)
+        console.log(routines[0].id)
+
+// WORKING ON ARCHIVE FUNCTIONALITY
+
+        // archives.push(routines[index])
+        // routines.splice(index,1)
+        res.status(200).send()
+    },  
+    getarchives: (req, res) => {
+        res.status(200).send(archives)
     }
 }
 

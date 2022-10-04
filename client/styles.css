@@ -127,11 +127,11 @@ div > img {
     border-radius: 50px;
     width:80%;
     box-shadow: 2px 2px #555b6e;
-    /* padding:10px; */
     display:inline-block;
     vertical-align: top;
     margin:20px;
     padding-left: 20px;
+    position: relative;
 }
 
 @media screen and (min-width: 600px) {
@@ -140,6 +140,25 @@ div > img {
 
     }
   }
+
+  .archive {
+    font-family: lgc;
+    position:absolute;
+    top:20px;
+    right:20px;
+    background-color: plum;
+    color:black;
+  }
+
+  .viewArchive {
+    padding:10px;
+    position:absolute;
+    text-align: right;
+}
+
+.arcbtn {
+
+}
 
 .favBtn {
     background-image: url(/heart);
@@ -250,12 +269,12 @@ ul.allthecheckboxes label {
   
   /* On mouse-over, add a grey background color */
   .container:hover input ~ .checkmark {
-    background-color: #cb722a;
+    background-color: plum;
   }
   
   /* When the checkbox is checked, add a blue background */
   .container input:checked ~ .checkmark {
-    background-color: #99582A;
+    background-color: blueviolet;
   }
   
   /* Create the checkmark/indicator (hidden when not checked) */
@@ -287,11 +306,11 @@ ul.allthecheckboxes label {
 .routineSubmit {
  font-family: lgc;
  font-size: 20pt;
- background-color: #cb722a;
+ background-color: plum;
  border-radius: 5px;
  text-align: center;
  margin-left: 30px;
- color:#ffd4d4;
+ color:black;
 }
 
 .formheading {

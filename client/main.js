@@ -16,6 +16,7 @@ const routineForm  = document.querySelector('#routineForm')
 const checkboxes = document.getElementsByClassName('checkboxes')
 
 let routinePoses = []
+let globalID = 4
 
 // front-end functions
 const clearList = () => {
@@ -312,12 +313,14 @@ const addRoutine = (e) => {
     }
 
     let body = {
+        id:globalID,
         name:  rName.value,
         creator: creator.value,
         difficulty,
         description: desc.value,
         poses: routinePoses
     }
+    globalID++
 
     if (body.name === '' || body.creator === '' || difficulty === '') {
         alert('Required fields must be filled to submit routine.')
@@ -389,7 +392,6 @@ function slist (target) {
   }
 
 const showRoutines = () => {
-    // clearList()
 
     axios.get('/routines').then(res => {
         if (res.data.length === 0) {
@@ -402,6 +404,9 @@ const showRoutines = () => {
 
                 const routineName = document.createElement('h2')
                 routineName.textContent= res.data[i].name
+
+                const archive = document.createElement('div')
+                archive.innerHTML = `<button class="archive" onclick="arcRoutine('${res.data[i].id}')">Archive</button>`
 
                 const creatorName = document.createElement('h4')
                 creatorName.textContent = 'Created by ' + res.data[i].creator
@@ -429,7 +434,7 @@ const showRoutines = () => {
                 })
                 poseList.append(orderlist)
 
-                thisRoutine.append(routineName, creatorName, level, desc, poseList)
+                thisRoutine.append(routineName, archive, creatorName, level, desc, poseList)
                 displayRoutines.append(thisRoutine)
                 slist(orderlist)
 
@@ -447,14 +452,11 @@ function myFunction() {
     }
   }
 
+const arcRoutine = (routName) => {
+    console.log(routName)
+    axios.put(`/routines/${routName}`).then(showRoutines())
+}
 
-
-// event listeners
-// allPoses.addEventListener('click', () => showPoses('eaz'))
-// allCat.addEventListener('click', () => getAllCat())
-// allFavs.addEventListener('click', () => getAllFavs())
-// routineAdder.addEventListener('click', () => routineSetUp())
-// allRoutines.addEventListener('click', () => showRoutines())
 
 allPoses.addEventListener('mouseover', () => moused(1))
 allCat.addEventListener('mouseover', () => moused(2))

@@ -36,6 +36,7 @@ header {
     background-color: #89b0ae;
     position:sticky;
     top: 0;
+
     /* height:10vh; */
     /* margin-bottom: 10px; */
 }
@@ -98,12 +99,18 @@ div > img {
     background-color: #bee3db;
     border: 1px silver solid;
     border-radius: 50px;
-    margin:50px;
+    margin:20px;
     box-shadow: 2px 2px 2px 2px #555b6e;
-    width:33%;
+    /* width:35%; */
     display:inline-block;
     position:relative;
 }
+
+@media screen and (min-width: 600px) {
+    .poseContent {
+        width:40%;
+    }
+  }
 
 .catContent {
     background-color:#bee3db;
@@ -118,7 +125,7 @@ div > img {
     background-color:#bee3db;
     border: 1px silver solid;
     border-radius: 50px;
-    width:20%;
+    width:80%;
     box-shadow: 2px 2px #555b6e;
     /* padding:10px; */
     display:inline-block;
@@ -126,6 +133,13 @@ div > img {
     margin:20px;
     padding-left: 20px;
 }
+
+@media screen and (min-width: 600px) {
+    .routineContent {
+        width:25%;
+
+    }
+  }
 
 .favBtn {
     background-image: url(/heart);
@@ -156,12 +170,20 @@ div > img {
 }
 
 .main {
-    margin-top: 10px;
+    /* margin-top: 10px; */
     background-color: #bee3db;
     border-radius: 20px;
+    width:80%;
     padding:10px;
-    margin:10px;
+    margin:10%;
 }
+
+@media screen and (min-width: 600px) {
+    .main {
+        margin:10px;
+        width:100%;
+    }
+  }
 
 .hide {
     display: none;
@@ -171,13 +193,20 @@ div > img {
     background-color: #bee3db;
     border: 1px silver solid;
     border-radius: 50px;
-    margin:50px;
+    margin:20px;
     box-shadow: 2px 2px 2px 2px #555b6e;
     display:inline-block;
-    width:25%;
-    height:25%;
+    /* width:25%;
+    height:25%; */
     position: relative;
 }
+
+@media screen and (min-width: 600px) {
+    .favContent {
+        width:25%;
+        height:25%;
+    }
+  }
 
 .small {
     font-style:italic;

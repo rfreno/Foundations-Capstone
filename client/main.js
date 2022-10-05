@@ -82,6 +82,7 @@ const showPoses = () => {               // Request pose list from backend. Creat
 }
 
 const getAllFavs = () => {              // Request all 'favorites' from the pose list. Create HTML objects to display
+    displayFavs.innerHTML = ``
     axios.get(`/favorites`)
         .then(res => {
             for (let i = 0; i < res.data.length; i++) {

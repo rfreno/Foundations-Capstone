@@ -37,6 +37,7 @@ const getAllPoses = () => {             // Make a request to the Lightning Yoga 
 }})}
 
 const showPoses = () => {               // Request pose list from backend. Create HTML objects to display
+    getAllPoses()
     axios.get(`/poses`)
         .then(res => {
             for (let i = 0; i < res.data.length; i++) {
@@ -464,7 +465,7 @@ function myFunction() {             // Responsive function adapts nav bar to bec
     }
   }
 
-getAllPoses()
+
 
 
 allPoses.addEventListener('mouseover', () => moused(1))

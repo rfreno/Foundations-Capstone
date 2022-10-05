@@ -50,6 +50,7 @@ module.exports = {
     },
     getfavs: (req,res) => {
         let favorites = poseList.filter((pose) => pose.fav === true)
+        favorites = Array.from(new Set(favorites.map(a=>a.id))).map(id=> {return favorites.find(a=>a.id === id)})
         res.status(200).send(favorites)
     },
     addroutine: (req, res) => {

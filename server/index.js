@@ -7,10 +7,10 @@ const path = require('path')
 
 const port = process.env.PORT || 5000
 
-
 app.use(express.json())
 app.use(cors())
 
+// deconstruct functions from controller file for use in requests below
 const { addposes, getposes, togglefav, getfavs, addroutine, getroutines, arcroutine, getarchives } = require('./controller')
 
 app.post('/poses', addposes)
@@ -30,7 +30,7 @@ app.put('/routines/:id', arcroutine)
 app.get('/archives', getarchives)
 
 
-// html end-points
+// end-point references - html pages, images, fonts, etc
 app.get('/', (req,res) => {
     res.sendFile(path.join(__dirname, '../client/index.html'))
 })

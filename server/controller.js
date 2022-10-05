@@ -31,7 +31,6 @@ let archives = []
 module.exports = {
     addposes: (req, res) => {
         poseList.push(req.body)
-        // poseList.sort((a,b) => a.id - b.id)
         res.status(200).send()
     },
     getposes: (req, res) => {
@@ -47,7 +46,6 @@ module.exports = {
         } else {
             poseList[index].fav = false
         }
-
         res.status(200).send()
     },
     getfavs: (req,res) => {

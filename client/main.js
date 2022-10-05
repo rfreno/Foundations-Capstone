@@ -1,15 +1,11 @@
-// const baseURL = `http://localhost:9256`
-
 // document selectors
 const allPoses = document.querySelector('#allPoses')
-const sortBox = document.getElementById('sortdropdown')
 const allCat = document.querySelector('#allCat')
 const allFavs = document.querySelector('#allFavs')
 const allRoutines = document.querySelector('#allRoutines')
 const displayPoses = document.querySelector('#displayPoses')
 const displayCat = document.querySelector('#displayCat')
 const displayFavs = document.querySelector('#displayFavs')
-const mainCont = document.querySelector('#main')
 const routineAdder = document.querySelector('#addButton')
 const displayRoutines = document.querySelector('#displayRoutines')
 const routineForm  = document.querySelector('#routineForm')
@@ -19,7 +15,7 @@ let routinePoses = []
 let globalID = 4
 
 
-const getAllPoses = () => {
+const getAllPoses = () => {             // Make a request to the Lightning Yoga API. Create pose objects and push to backend
     axios.get(`https://lightning-yoga-api.herokuapp.com/yoga_poses`) 
         .then(res => {
             for (let i = 0; i < res.data.items.length; i++) {
@@ -40,9 +36,7 @@ const getAllPoses = () => {
                 axios.post(`/poses`, poseCopy).then()
 }})}
 
-const showPoses = () => {
-    getAllPoses()
-
+const showPoses = () => {               // Request pose list from backend. Create HTML objects to display
     axios.get(`/poses`)
         .then(res => {
             for (let i = 0; i < res.data.length; i++) {
@@ -86,7 +80,7 @@ const showPoses = () => {
     })
 }
 
-const getAllFavs = () => {
+const getAllFavs = () => {              // Request all 'favorites' from the pose list. Create HTML objects to display
     axios.get(`/favorites`)
         .then(res => {
             for (let i = 0; i < res.data.length; i++) {
@@ -124,7 +118,7 @@ const getAllFavs = () => {
     })
 }
 
-const getAllCat = () => {
+const getAllCat = () => {               // Request categories from Lightning Yoga API. Display in HTML
     axios.get(`https://lightning-yoga-api.herokuapp.com/yoga_categories`) 
     .then(res => {
         for (let i = 0; i < res.data.items.length; i++) {
@@ -165,7 +159,7 @@ const getAllCat = () => {
     })
 }
 
-const favorited = (button, pose, source) => {
+const favorited = (button, pose, source) => {               // Toggle the 'favorite' attribute of pose objects
     button.classList.toggle('favorited')
     button.classList.toggle('favBtn')
     axios.put(`/poses/${pose.id}`, pose).then()
@@ -174,36 +168,7 @@ const favorited = (button, pose, source) => {
     }
 } 
 
-const moused = num => {
-    if (num === 1) {
-        allPoses.classList.add('moused')
-    } else if (num === 2) {
-        allCat.classList.add('moused')
-    } else if (num === 3) {
-        allFavs.classList.add('moused')
-    } else if (num === 4) {
-        routineAdder.classList.add('moused')
-    } else if (num === 5) {
-        allRoutines.classList.add('moused')
-    }
-}
-
-const mouseOff = num => {
-    if (num === 1) {
-        allPoses.classList.remove('moused')
-    } else if (num === 2) {
-        allCat.classList.remove('moused')
-    } else if (num === 3) {
-        allFavs.classList.remove('moused')
-    } else if (num === 4) {
-        routineAdder.classList.remove('moused')
-    } else if (num === 5) {
-        allRoutines.classList.remove('moused')
-    }
-}
-
-const routineSetUp = () => {
-    // clearList()
+const routineSetUp = () => {                //  Generate HTML form for new routine creation
 
     routineForm.innerHTML = `
     <h2 class='formheading'>Fill out the form below to create a routine.</h2>
@@ -249,7 +214,7 @@ const routineSetUp = () => {
 
 }
 
-const addRoutine = (e) => {
+const addRoutine = (e) => {             // Pull information from HTML form to create a routine object. Push to backend. 
     e.preventDefault()
     const poseChecks = document.querySelectorAll('.checkboxes')
 
@@ -266,7 +231,6 @@ const addRoutine = (e) => {
     const adv = document.querySelector('#adv').checked
     const desc = document.querySelector('#description')
 
-    // set var to equal beg, int, or adv - which one is true?
     let difficulty = ''
     if (beg === true) {
         difficulty = 'Beginner'
@@ -301,8 +265,7 @@ const addRoutine = (e) => {
     routinePoses = []
 }
 
-function slist (target) {
-    // (A) SET CSS + GET ALL LIST ITEMS
+function slist (target) {               // Function allows poses in each routine list to be sorted on page
     target.classList.add("slist");
     let items = target.getElementsByTagName("li"), current = null;
   
@@ -357,7 +320,7 @@ function slist (target) {
     }
   }
 
-const showRoutines = () => {
+const showRoutines = () => {                // Request routine objects from backend and display
 
     axios.get('/routines').then(res => {
         if (res.data.length === 0) {
@@ -409,22 +372,13 @@ const showRoutines = () => {
     )
 }
 
-function myFunction() {
-    var x = document.getElementById("myTopnav");
-    if (x.className === "topnav") {
-      x.className += " responsive";
-    } else {
-      x.className = "topnav";
-    }
-  }
-
-const arcRoutine = (routName, reload) => {
+const arcRoutine = (routName, reload) => {              // Moves routine to the 'archive' list, reloads routine page.
     axios.put(`/routines/${routName}`).then(res => {
         location.reload()  
     })
 }
 
-const showArchives = () => {
+const showArchives = () => {                // Request archive list from backend and display
 
     axios.get('/archives').then(res => {
         if (res.data.length === 0) {
@@ -472,6 +426,45 @@ const showArchives = () => {
     }}
     )
 }
+
+const moused = num => {             // Add class to nav bar elements when moused over
+    if (num === 1) {
+        allPoses.classList.add('moused')
+    } else if (num === 2) {
+        allCat.classList.add('moused')
+    } else if (num === 3) {
+        allFavs.classList.add('moused')
+    } else if (num === 4) {
+        routineAdder.classList.add('moused')
+    } else if (num === 5) {
+        allRoutines.classList.add('moused')
+    }
+}
+
+const mouseOff = num => {               // Remove class from nav bar elements when moused over
+    if (num === 1) {
+        allPoses.classList.remove('moused')
+    } else if (num === 2) {
+        allCat.classList.remove('moused')
+    } else if (num === 3) {
+        allFavs.classList.remove('moused')
+    } else if (num === 4) {
+        routineAdder.classList.remove('moused')
+    } else if (num === 5) {
+        allRoutines.classList.remove('moused')
+    }
+}
+
+function myFunction() {             // Responsive function adapts nav bar to become a menu
+    var x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+      x.className += " responsive";
+    } else {
+      x.className = "topnav";
+    }
+  }
+
+getAllPoses()
 
 
 allPoses.addEventListener('mouseover', () => moused(1))

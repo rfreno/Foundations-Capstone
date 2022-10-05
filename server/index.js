@@ -76,11 +76,8 @@ app.get('/axiosnodes', (req, res) => {
 app.get('/main', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/main.js'))
 })
-app.get('/sortlist', (req,res) => {
-    res.sendFile(path.join(__dirname, '../client/sort-list.js'))
-})
-app.get('/testing', (req,res) => {
-    res.sendFile(path.join(__dirname, '../client/nav.html'))
+app.get('/archiveList', (req,res) => {
+    res.sendFile(path.join(__dirname, '../client/archives.html'))
 })
 
 app.listen(port, () => console.log('Listening on port ' + port))

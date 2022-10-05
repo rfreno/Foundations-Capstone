@@ -18,16 +18,6 @@ const checkboxes = document.getElementsByClassName('checkboxes')
 let routinePoses = []
 let globalID = 4
 
-// front-end functions
-const clearList = () => {
-    mainCont.classList.add('hide')
-    displayPoses.innerHTML = ``
-    sortBox.innerHTML = ``
-    displayCat.innerHTML = ``
-    displayFavs.innerHTML = ``
-    routineForm.innerHTML = ``
-    displayRoutines.innerHTML = ``
-}
 
 const getAllPoses = () => {
     axios.get(`https://lightning-yoga-api.herokuapp.com/yoga_poses`) 
@@ -52,27 +42,9 @@ const getAllPoses = () => {
 
 const showPoses = () => {
     getAllPoses()
-    // clearList()
 
-    // sortBox.innerHTML = `
-    //     <label>Sort By:</label>
-    //     <select id="sort" onchange="showPoses()">
-    //         <option value="eaz">English - A to Z</option>
-    //         <option value="eza">English - Z to A</option>
-    //         <option value="saz">Sanskrit - A to Z</option>
-    //         <option value="sza">Sanskrit - Z to A</option>
-    //     </select>
-    // `
-    // const order = document.getElementById('sort').value
-    // console.log("doc", document.getElementById('sort'))
-    // // if (order === null) {
-    // //     order = 'eaz'
-    // // }
-    // console.log('order',order)
-
-    axios.get(`/poses`)//,{params:{order}})
+    axios.get(`/poses`)
         .then(res => {
-            // console.log(res)
             for (let i = 0; i < res.data.length; i++) {
                 const thisPose = document.createElement('div')
                 thisPose.classList.add("poseContent")
@@ -115,10 +87,8 @@ const showPoses = () => {
 }
 
 const getAllFavs = () => {
-    // clearList()
     axios.get(`/favorites`)
         .then(res => {
-            // console.log(res)
             for (let i = 0; i < res.data.length; i++) {
                 const thisPose = document.createElement('div')
                 thisPose.classList.add("favContent")
@@ -135,7 +105,6 @@ const getAllFavs = () => {
                     favBtn.classList.add('favorited')
                 }
                 favBtn.addEventListener('click', () => favorited(favBtn, res.data[i], true))
-                // add functionality to this for fav list
                 
                 poseHeader.append(headerName,favBtn)
                 thisPose.append(poseHeader)
@@ -153,8 +122,6 @@ const getAllFavs = () => {
                 `
             }
     })
-
-
 }
 
 const getAllCat = () => {
@@ -202,7 +169,6 @@ const favorited = (button, pose, source) => {
     button.classList.toggle('favorited')
     button.classList.toggle('favBtn')
     axios.put(`/poses/${pose.id}`, pose).then()
-    // console.log(source)
     if (source === true) {
         getAllFavs()
     }
@@ -406,7 +372,7 @@ const showRoutines = () => {
                 routineName.textContent= res.data[i].name
 
                 const archive = document.createElement('div')
-                archive.innerHTML = `<button class="archive" onclick="arcRoutine('${res.data[i].id}')">Archive</button>`
+                archive.innerHTML = `<button class="archive" onclick="arcRoutine('${res.data[i].id}',true)">Archive</button>`
 
                 const creatorName = document.createElement('h4')
                 creatorName.textContent = 'Created by ' + res.data[i].creator
@@ -452,9 +418,59 @@ function myFunction() {
     }
   }
 
-const arcRoutine = (routName) => {
-    console.log(routName)
-    axios.put(`/routines/${routName}`).then(showRoutines())
+const arcRoutine = (routName, reload) => {
+    axios.put(`/routines/${routName}`).then(res => {
+        location.reload()  
+    })
+}
+
+const showArchives = () => {
+
+    axios.get('/archives').then(res => {
+        if (res.data.length === 0) {
+            displayRoutines.innerHTML = `<p class="small">There are no routines in archives</p>`
+        }
+        else {
+            for (let i = 0; i < res.data.length; i++) {
+                const thisRoutine = document.createElement('div')
+                thisRoutine.classList.add('routineContent')
+
+                const routineName = document.createElement('h2')
+                routineName.textContent= res.data[i].name
+
+                const creatorName = document.createElement('h4')
+                creatorName.textContent = 'Created by ' + res.data[i].creator
+
+                const desc = document.createElement('h5')
+                desc.textContent= res.data[i].description
+
+                const level = document.createElement('h4')
+                level.textContent = 'Difficulty: ' + res.data[i].difficulty
+
+                const poseList = document.createElement('div')
+                const title = document.createElement('p')
+                title.textContent = 'Pose List:'
+                poseList.append(title)
+                const orderlist = document.createElement('ul')
+                orderlist.id ='sortlist'
+                orderlist.classList.add('slist')
+                
+                res.data[i].poses.forEach(item => {
+                    const newItem = document.createElement('li')
+                    newItem.draggable = true
+                    newItem.classList.add('poselist')
+                    newItem.textContent = item
+                    orderlist.append(newItem)
+                })
+                poseList.append(orderlist)
+
+                thisRoutine.append(routineName, creatorName, level, desc, poseList)
+                displayRoutines.append(thisRoutine)
+                slist(orderlist)
+
+            }
+    }}
+    )
 }
 
 

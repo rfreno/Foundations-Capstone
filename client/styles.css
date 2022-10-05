@@ -36,7 +36,7 @@ header {
     background-color: #89b0ae;
     position:sticky;
     top: 0;
-
+    z-index: 100;
     /* height:10vh; */
     /* margin-bottom: 10px; */
 }

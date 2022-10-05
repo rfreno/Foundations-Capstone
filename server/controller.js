@@ -37,17 +37,6 @@ module.exports = {
     getposes: (req, res) => {
         poseList = Array.from(new Set(poseList.map(a => a.id))).map(id => {return poseList.find(a => a.id === id)})
 
-        // if (req.query.foo === 'eaz') {
-        //     console.log('yes')
-        //     poseList.sort((a,b) => a.id - b.id)
-        // } else if (req.params === 'eza') {
-        //     poseList.sort((a,b) => b.id - a.id)
-        // } 
-        // else if (req.params === 'saz') {
-
-        // } else if (req.params === 'sza') {
-
-        // }
         res.status(200).send(poseList)
     },
     togglefav: (req, res) => {
@@ -73,16 +62,9 @@ module.exports = {
         res.status(200).send(routines)
     },
     arcroutine: (req, res) => {
-        // console.log(req.params.id)
-        console.log(req.params.id)
-        let index = routines.findIndex(elem => elem.id === req.params.id)
-        console.log(index)
-        console.log(routines[0].id)
-
-// WORKING ON ARCHIVE FUNCTIONALITY
-
-        // archives.push(routines[index])
-        // routines.splice(index,1)
+        let ind = routines.findIndex(elem => elem.id === parseInt(req.params.id))
+        archives.push(routines[ind])
+        routines.splice(ind,1)
         res.status(200).send()
     },  
     getarchives: (req, res) => {
